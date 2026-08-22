@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUNDING /// WATCH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0d10;
+    --panel:#10151a;
+    --panel-alt:#141b21;
+    --border:#1c252c;
+    --border-soft:#161e24;
+    --text:#d7dee5;
+    --text-dim:#6f7d8a;
+    --text-faint:#3d4852;
+    --green:#2fd77c;
+    --green-dim:#173324;
+    --red:#ef5b5b;
+    --red-dim:#331717;
+    --amber:#e8a53d;
+    --amber-dim:#332a15;
+    --binance:#f0b90b;
+    --bybit:#f7a600;
+    --hyperliquid:#8af5cf;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(47,215,124,0.05), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 105% 10%, rgba(240,185,11,0.04), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    min-height:100vh;
+    padding:28px 20px 60px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  /* ---------- header ---------- */
+  header{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:1px solid var(--border);
+    padding-bottom:16px; margin-bottom:18px;
+    flex-wrap:wrap; gap:12px;
+  }
+  .brand{display:flex; flex-direction:column; gap:6px;}
+  .brand .mark{
+    font-size:12px; letter-spacing:0.35em; color:var(--text-faint); font-weight:600;
+  }
+  .brand h1{
+    margin:0; font-size:28px; letter-spacing:0.02em; font-weight:800;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand h1 .dot{
+    width:9px; height:9px; border-radius:50%; background:var(--green);
+    box-shadow:0 0 0 4px var(--green-dim);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.8);}
+  }
+  .clock{
+    text-align:right; font-size:13px; color:var(--text-dim); line-height:1.6;
+  }
+  .clock b{color:var(--text); font-size:15px; font-variant-numeric:tabular-nums;}
+
+  /* ---------- controls ---------- */
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  .controls{
+    padding:16px 18px; margin-bottom:20px;
+    display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end;
+  }
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{
+    font-size:10.5px; letter-spacing:0.12em; color:var(--text-faint); font-weight:600; text-transform:uppercase;
+  }
+  .field input{
+    background:var(--panel-alt); border:1px solid var(--border); color:var(--text);
+    font-family:inherit; font-size:13px; padding:9px 11px; border-radius:7px; min-width:220px;
+    outline:none;
+  }
+  .field input:focus{border-color:var(--text-faint);}
+  .field.small input{min-width:90px;}
+  .btn{
+    font-family:inherit; font-size:12.5px; font-weight:600; letter-spacing:0.03em;
+    padding:10px 16px; border-radius:7px; cursor:pointer; border:1px solid var(--border);
+    background:var(--panel-alt); color:var(--text); transition:border-color .15s, color .15s;
+  }
+  .btn:hover{border-color:var(--text-dim); color:#fff;}
+  .btn.primary{background:var(--green-dim); border-color:#1e5c3d; color:var(--green);}
+  .btn.primary:hover{border-color:var(--green);}
+  .btn.on{background:var(--green-dim); border-color:#1e5c3d; color:var(--green);}
+  .btn:disabled{opacity:.5; cursor:default;}
+  .spacer{flex:1;}
+
+  .heartbeat{
+    display:flex; flex-direction:column; gap:6px; min-width:180px;
+  }
+  .heartbeat .row{display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim);}
+  .heartbeat .row span:last-child{color:var(--text); font-variant-numeric:tabular-nums;}
+  .barTrack{height:4px; background:var(--panel-alt); border-radius:2px; overflow:hidden; border:1px solid var(--border);}
+  .barFill{height:100%; width:0%; background:linear-gradient(90deg, var(--green), var(--hyperliquid)); transition:width 1s linear;}
+
+  /* ---------- coin panels ---------- */
+  .coin-panel{margin-bottom:16px; overflow:hidden;}
+  .coin-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 18px; border-bottom:1px solid var(--border-soft);
+    background:var(--panel-alt);
+  }
+  .coin-head .name{
+    font-size:16px; font-weight:800; letter-spacing:0.02em; display:flex; align-items:center; gap:10px;
+  }
+  .coin-head .name small{font-size:11px; color:var(--text-faint); font-weight:500;}
+  .spread{
+    font-size:11.5px; padding:5px 10px; border-radius:20px; border:1px solid var(--border);
+    color:var(--text-dim); display:flex; align-items:center; gap:6px;
+  }
+  .spread b{color:var(--amber); font-variant-numeric:tabular-nums;}
+
+  table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  thead th{
+    text-align:left; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-faint); font-weight:600; padding:9px 18px; border-bottom:1px solid var(--border-soft);
+  }
+  tbody td{padding:11px 18px; border-bottom:1px solid var(--border-soft); vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr{transition:background-color .4s ease;}
+  .ex-cell{display:flex; align-items:center; gap:9px; font-weight:600;}
+  .ex-dot{width:8px; height:8px; border-radius:2px; flex:none;}
+  .ex-dot.binance{background:var(--binance);}
+  .ex-dot.bybit{background:var(--bybit);}
+  .ex-dot.hyperliquid{background:var(--hyperliquid);}
+  .rate{font-variant-numeric:tabular-nums; font-weight:700;}
+  .rate.pos{color:var(--green);}
+  .rate.neg{color:var(--red);}
+  .muted{color:var(--text-dim); font-variant-numeric:tabular-nums;}
+  .delta{font-variant-numeric:tabular-nums; font-size:11.5px;}
+  .delta.up{color:var(--green);}
+  .delta.down{color:var(--red);}
+  .na{color:var(--text-faint);}
+
+  tr.flash-up{animation:flashUp 1.4s ease;}
+  tr.flash-down{animation:flashDown 1.4s ease;}
+  @keyframes flashUp{ 0%{background:var(--green-dim);} 100%{background:transparent;} }
+  @keyframes flashDown{ 0%{background:var(--red-dim);} 100%{background:transparent;} }
+  tr.alert-row{background:var(--amber-dim);}
+
+  /* ---------- log ---------- */
+  .log-panel{padding:14px 18px; margin-top:22px;}
+  .log-title{
+    font-size:10.5px; letter-spacing:0.12em; color:var(--text-faint); font-weight:600; text-transform:uppercase;
+    margin-bottom:10px; display:flex; align-items:center; gap:8px;
+  }
+  .log-title .n{
+    background:var(--panel-alt); border:1px solid var(--border); color:var(--text-dim);
+    border-radius:20px; padding:1px 8px; font-size:10px;
+  }
+  .log-list{display:flex; flex-direction:column-reverse; gap:0; max-height:220px; overflow-y:auto;}
+  .log-item{
+    font-size:12px; padding:8px 0; border-bottom:1px solid var(--border-soft);
+    display:flex; gap:10px; color:var(--text-dim);
+  }
+  .log-item:last-child{border-bottom:none;}
+  .log-item .t{color:var(--text-faint); flex:none; font-variant-numeric:tabular-nums;}
+  .log-item b{color:var(--amber);}
+  .log-empty{color:var(--text-faint); font-size:12px; padding:6px 0;}
+
+  footer{
+    margin-top:28px; text-align:center; font-size:11px; color:var(--text-faint); letter-spacing:0.04em;
+  }
+  a{color:inherit;}
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border); border-radius:4px;}
+
+  @media (max-width:640px){
+    .controls{flex-direction:column; align-items:stretch;}
+    .field input{min-width:0; width:100%;}
+    thead th:nth-child(4), tbody td:nth-child(4){display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="mark">CROSS-EXCHANGE MONITOR</div>
+      <h1><span class="dot"></span> FUNDING / WATCH</h1>
+    </div>
+    <div class="clock">
+      UTC <b id="clockUtc">--:--:--</b><br>
+      обновлено: <b id="lastUpdate">—</b>
+    </div>
+  </header>
+
+  <div class="panel controls">
+    <div class="field">
+      <label>Монеты (через запятую)</label>
+      <input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false">
+    </div>
+    <div class="field small">
+      <label>Порог алерта, п.п.</label>
+      <input id="thresholdInput" type="number" step="0.001" min="0" value="0.02">
+    </div>
+    <div class="field small">
+      <label>Интервал, сек</label>
+      <input id="intervalInput" type="number" step="5" min="15" value="60">
+    </div>
+    <button class="btn primary" id="applyBtn">Применить</button>
+    <button class="btn" id="refreshBtn">Обновить сейчас</button>
+    <div class="spacer"></div>
+    <button class="btn" id="notifyBtn">🔔 Включить уведомления</button>
+    <div class="heartbeat">
+      <div class="row"><span>след. опрос через</span><span id="countdownTxt">60s</span></div>
+      <div class="barTrack"><div class="barFill" id="barFill"></div></div>
+    </div>
+  </div>
+
+  <div id="coinsContainer"></div>
+
+  <div class="panel log-panel">
+    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span></div>
+    <div class="log-list" id="logList">
+      <div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>
+    </div>
+  </div>
+
+  <footer>
+    Binance USDⓈ-M · Bybit Linear · Hyperliquid Perps · данные напрямую из публичных REST API бирж, без бэкенда
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- state ----------
+  let coins = [];
+  let thresholdPct = 0.02;   // percentage points of funding rate
+  let intervalSec = 60;
+  let timerId = null;
+  let countdown = 60;
+  let prevRates = {};        // key: "EXCHANGE|COIN" -> {rate, ts}
+  let logEntries = [];
+  let notifGranted = false;
+
+  const $ = (id) => document.getElementById(id);
+  const coinsContainer = $('coinsContainer');
+
+  const EXCHANGES = [
+    { id:'binance',     label:'Binance',     cls:'binance',     interval:8 },
+    { id:'bybit',        label:'Bybit',       cls:'bybit',       interval:8 },
+    { id:'hyperliquid',  label:'Hyperliquid', cls:'hyperliquid', interval:1 },
+  ];
+
+  function fmtPct(x, digits){
+    if(x===null || x===undefined || isNaN(x)) return null;
+    return (x*100).toFixed(digits===undefined?4:digits) + '%';
+  }
+  function fmtApr(x){
+    if(x===null || x===undefined || isNaN(x)) return null;
+    return x.toFixed(1) + '%';
+  }
+  function nowHHMMSS(){
+    const d = new Date();
+    return d.toTimeString().slice(0,8);
+  }
+
+  // ---------- fetchers ----------
+  async function fetchBinance(coinList){
+    const res = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex');
+    if(!res.ok) throw new Error('binance http ' + res.status);
+    const data = await res.json();
+    const map = {};
+    data.forEach(d => { map[d.symbol] = d; });
+    return coinList.map(c => {
+      const d = map[c + 'USDT'];
+      if(!d) return { coin:c, exchange:'binance', rate:null, mark:null };
+      return { coin:c, exchange:'binance', rate: parseFloat(d.lastFundingRate), mark: parseFloat(d.markPrice) };
+    });
+  }
+
+  async function fetchBybit(coinList){
+    const res = await fetch('https://api.bybit.com/v5/market/tickers?category=linear');
+    if(!res.ok) throw new Error('bybit http ' + res.status);
+    const j = await res.json();
+    const list = (j.result && j.result.list) || [];
+    const map = {};
+    list.forEach(d => { map[d.symbol] = d; });
+    return coinList.map(c => {
+      const d = map[c + 'USDT'];
+      if(!d) return { coin:c, exchange:'bybit', rate:null, mark:null };
+      return { coin:c, exchange:'bybit', rate: parseFloat(d.fundingRate), mark: parseFloat(d.markPrice) };
+    });
+  }
+
+  async function fetchHyperliquid(coinList){
+    const res = await fetch('https://api.hyperliquid.xyz/info', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ type:'metaAndAssetCtxs' })
+    });
+    if(!res.ok) throw new Error('hyperliquid http ' + res.status);
+    const j = await res.json();
+    const universe = (j[0] && j[0].universe) || [];
+    const ctxs = j[1] || [];
+    const map = {};
+    universe.forEach((u, i) => { map[u.name] = ctxs[i]; });
+    return coinList.map(c => {
+      const d = map[c];
+      if(!d) return { coin:c, exchange:'hyperliquid', rate:null, mark:null };
+      return { coin:c, exchange:'hyperliquid', rate: parseFloat(d.funding), mark: parseFloat(d.markPx) };
+    });
+  }
+
+  const FETCHERS = { binance: fetchBinance, bybit: fetchBybit, hyperliquid: fetchHyperliquid };
+
+  // ---------- rendering ----------
+  function ensureSkeleton(){
+    coinsContainer.innerHTML = '';
+    coins.forEach(coin => {
+      const panel = document.createElement('div');
+      panel.className = 'panel coin-panel';
+      panel.id = 'panel-' + coin;
+      panel.innerHTML = `
+        <div class="coin-head">
+          <div class="name">${coin} <small>PERP</small></div>
+          <div class="spread" id="spread-${coin}">спред —</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Биржа</th>
+              <th>Funding</th>
+              <th>Интервал</th>
+              <th>APR (норм.)</th>
+              <th>Δ пред. опрос</th>
+            </tr>
+          </thead>
+          <tbody id="body-${coin}">
+            ${EXCHANGES.map(ex => `
+              <tr id="row-${ex.id}-${coin}">
+                <td><span class="ex-cell"><span class="ex-dot ${ex.cls}"></span>${ex.label}</span></td>
+                <td class="rate na" id="rate-${ex.id}-${coin}">—</td>
+                <td class="muted">${ex.interval}h</td>
+                <td class="muted na" id="apr-${ex.id}-${coin}">—</td>
+                <td class="delta na" id="delta-${ex.id}-${coin}">—</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+      coinsContainer.appendChild(panel);
+    });
+  }
+
+  function updateCell(exId, coin, rate, intervalHours){
+    const rateEl = $(`rate-${exId}-${coin}`);
+    const aprEl = $(`apr-${exId}-${coin}`);
+    const deltaEl = $(`delta-${exId}-${coin}`);
+    const rowEl = $(`row-${exId}-${coin}`);
+    const key = exId + '|' + coin;
+
+    if(rate === null || isNaN(rate)){
+      rateEl.textContent = 'н/д';
+      rateEl.className = 'rate na';
+      aprEl.textContent = '—';
+      return;
+    }
+
+    const pctText = fmtPct(rate, 4);
+    rateEl.textContent = pctText;
+    rateEl.className = 'rate ' + (rate >= 0 ? 'pos' : 'neg');
+
+    const apr = rate * (24/intervalHours) * 365 * 100;
+    aprEl.textContent = fmtApr(apr);
+    aprEl.className = 'muted';
+
+    const prev = prevRates[key];
+    if(prev !== undefined){
+      const diffPP = (rate - prev) * 100; // percentage points
+      if(Math.abs(diffPP) > 0.0001){
+        deltaEl.textContent = (diffPP > 0 ? '+' : '') + diffPP.toFixed(4) + 'pp';
+        deltaEl.className = 'delta ' + (diffPP > 0 ? 'up' : 'down');
+        rowEl.classList.remove('flash-up','flash-down');
+        void rowEl.offsetWidth; // restart animation
+        rowEl.classList.add(diffPP > 0 ? 'flash-up' : 'flash-down');
+      } else {
+        deltaEl.textContent = '0.0000pp';
+        deltaEl.className = 'delta';
+      }
+
+      if(Math.abs(diffPP) >= thresholdPct){
+        rowEl.classList.add('alert-row');
+        fireAlert(EXCHANGES.find(e=>e.id===exId).label, coin, prev, rate, diffPP);
+      } else {
+        rowEl.classList.remove('alert-row');
+      }
+    } else {
+      deltaEl.textContent = 'первый опрос';
+      deltaEl.className = 'delta muted';
+    }
+
+    prevRates[key] = rate;
+  }
+
+  function updateSpread(coin, values){
+    const el = $('spread-' + coin);
+    const valid = values.filter(v => v !== null && !isNaN(v));
+    if(valid.length < 2){ el.innerHTML = 'спред —'; return; }
+    const max = Math.max(...valid), min = Math.min(...valid);
+    const spreadPP = (max - min) * 100;
+    el.innerHTML = 'спред <b>' + spreadPP.toFixed(4) + 'pp</b>';
+  }
+
+  // ---------- alerts ----------
+  function fireAlert(exLabel, coin, prevRate, newRate, diffPP){
+    const t = nowHHMMSS();
+    const msg = `${exLabel} ${coin}: ${fmtPct(prevRate,4)} → ${fmtPct(newRate,4)} (${diffPP>0?'+':''}${diffPP.toFixed(4)}pp)`;
+    logEntries.push({ t, msg });
+    if(logEntries.length > 60) logEntries.shift();
+    renderLog();
+
+    if(notifGranted && document.visibilityState !== 'visible'){
+      try {
+        new Notification('⚡ Funding сдвиг: ' + coin + ' на ' + exLabel, { body: msg, tag: exLabel+coin+Date.now() });
+      } catch(e){ /* ignore */ }
+    } else if(notifGranted){
+      try {
+        new Notification('⚡ Funding сдвиг: ' + coin + ' на ' + exLabel, { body: msg, tag: exLabel+coin+Date.now() });
+      } catch(e){ /* ignore */ }
+    }
+  }
+
+  function renderLog(){
+    $('logCount').textContent = logEntries.length;
+    const listEl = $('logList');
+    if(logEntries.length === 0){
+      listEl.innerHTML = '<div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>';
+      return;
+    }
+    listEl.innerHTML = logEntries.map(e =>
+      `<div class="log-item"><span class="t">${e.t}</span><span>${e.msg}</span></div>`
+    ).join('');
+  }
+
+  // ---------- polling ----------
+  async function pollOnce(){
+    $('refreshBtn').disabled = true;
+    const results = await Promise.allSettled(
+      EXCHANGES.map(ex => FETCHERS[ex.id](coins))
+    );
+
+    const byCoin = {}; // coin -> {exId: rate}
+    coins.forEach(c => byCoin[c] = {});
+
+    results.forEach((res, i) => {
+      const ex = EXCHANGES[i];
+      if(res.status === 'fulfilled'){
+        res.value.forEach(item => {
+          updateCell(ex.id, item.coin, item.rate, ex.interval);
+          byCoin[item.coin][ex.id] = item.rate;
+        });
+      } else {
+        coins.forEach(c => {
+          const rateEl = $(`rate-${ex.id}-${c}`);
+          if(rateEl){ rateEl.textContent = 'ошибка'; rateEl.className='rate na'; }
+        });
+        console.warn(ex.label + ' fetch failed:', res.reason);
+      }
+    });
+
+    coins.forEach(c => {
+      updateSpread(c, EXCHANGES.map(ex => byCoin[c][ex.id] ?? null));
+    });
+
+    $('lastUpdate').textContent = nowHHMMSS();
+    $('refreshBtn').disabled = false;
+  }
+
+  // ---------- countdown / timer ----------
+  function resetCountdown(){
+    countdown = intervalSec;
+    updateCountdownUI();
+  }
+  function updateCountdownUI(){
+    $('countdownTxt').textContent = countdown + 's';
+    const pct = 100 * (1 - countdown / intervalSec);
+    $('barFill').style.width = pct + '%';
+  }
+  function tick(){
+    countdown -= 1;
+    if(countdown <= 0){
+      pollOnce();
+      resetCountdown();
+    } else {
+      updateCountdownUI();
+    }
+  }
+  function startTimer(){
+    if(timerId) clearInterval(timerId);
+    resetCountdown();
+    timerId = setInterval(tick, 1000);
+  }
+
+  // ---------- clock ----------
+  setInterval(() => {
+    $('clockUtc').textContent = new Date().toUTCString().slice(17,25);
+  }, 1000);
+
+  // ---------- controls wiring ----------
+  function parseCoins(){
+    return $('coinsInput').value
+      .split(',')
+      .map(s => s.trim().toUpperCase())
+      .filter(Boolean);
+  }
+
+  $('applyBtn').addEventListener('click', () => {
+    coins = parseCoins();
+    thresholdPct = parseFloat($('thresholdInput').value) || 0.02;
+    intervalSec = Math.max(15, parseInt($('intervalInput').value) || 60);
+    prevRates = {};
+    ensureSkeleton();
+    pollOnce();
+    startTimer();
+  });
+
+  $('refreshBtn').addEventListener('click', () => { pollOnce(); resetCountdown(); });
+
+  $('notifyBtn').addEventListener('click', async () => {
+    if(!('Notification' in window)){
+      alert('Браузер не поддерживает уведомления.');
+      return;
+    }
+    const perm = await Notification.requestPermission();
+    notifGranted = perm === 'granted';
+    if(notifGranted){
+      $('notifyBtn').textContent = '✅ Уведомления включены';
+      $('notifyBtn').classList.add('on');
+      new Notification('Funding Watch', { body: 'Уведомления включены — сообщу о резких сдвигах funding rate.' });
+    } else {
+      $('notifyBtn').textContent = '🔕 Уведомления заблокированы';
+    }
+  });
+
+  // ---------- init ----------
+  coins = parseCoins();
+  thresholdPct = parseFloat($('thresholdInput').value) || 0.02;
+  intervalSec = Math.max(15, parseInt($('intervalInput').value) || 60);
+  ensureSkeleton();
+  pollOnce();
+  startTimer();
+
+  if('Notification' in window && Notification.permission === 'granted'){
+    notifGranted = true;
+    $('notifyBtn').textContent = '✅ Уведомления включены';
+    $('notifyBtn').classList.add('on');
+  }
+})();
+</script>
+</body>
+</html>
