@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Черный фон с закругленными углами -->
+  <rect width="512" height="512" rx="90" fill="#000000"/>
+  
+  <!-- Уголки прицела / мониторинга -->
+  <path d="M110 170V110H170" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M402 170V110H342" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M110 342V402H170" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M402 342V402H342" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Внешний контур глаза -->
+  <path d="M70 256C130 150 210 120 256 120C302 120 382 150 442 256C382 362 302 392 256 392C210 392 130 362 70 256Z" fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linejoin="round"/>
+  
+  <!-- Зрачок (бирюзовый) -->
+  <circle cx="256" cy="256" r="75" fill="#00FFFF"/>
+  <circle cx="256" cy="256" r="30" fill="#000000"/>
+</svg>

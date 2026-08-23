@@ -5,268 +5,166 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FUNDING /// WATCH</title>
 <meta name="theme-color" content="#0a0d10">
+<link rel="icon" type="image/svg+xml" href="gemini-svg.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0d10;
-    --panel:#10151a;
-    --panel-alt:#141b21;
-    --border:#1c252c;
-    --border-soft:#161e24;
-    --text:#d7dee5;
-    --text-dim:#6f7d8a;
-    --text-faint:#3d4852;
-    --green:#2fd77c;
-    --green-dim:#173324;
-    --red:#ef5b5b;
-    --red-dim:#331717;
-    --amber:#e8a53d;
-    --amber-dim:#332a15;
-    --blue:#5aa9ff;
-    --blue-dim:#132a42;
-    --hyperliquid:#8af5cf;
+    --bg:#0a0d10;--panel:#10151a;--panel-alt:#141b21;--border:#1c252c;--border-soft:#161e24;
+    --text:#d7dee5;--text-dim:#6f7d8a;--text-faint:#3d4852;
+    --green:#2fd77c;--green-dim:#173324;--red:#ef5b5b;--red-dim:#331717;
+    --amber:#e8a53d;--amber-dim:#332a15;--blue:#5aa9ff;--blue-dim:#132a42;--hyperliquid:#8af5cf;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  *{box-sizing:border-box;}html,body{margin:0;padding:0;}
   body{
-    background:
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(47,215,124,0.05), transparent 60%),
-      radial-gradient(ellipse 800px 500px at 105% 10%, rgba(138,245,207,0.03), transparent 60%),
-      var(--bg);
-    color:var(--text);
-    font-family:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
-    min-height:100vh;
-    padding:28px 20px 60px;
+    background:radial-gradient(ellipse 900px 500px at 15% -10%,rgba(47,215,124,0.05),transparent 60%),radial-gradient(ellipse 800px 500px at 105% 10%,rgba(138,245,207,0.03),transparent 60%),var(--bg);
+    color:var(--text);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+    min-height:100vh;padding:28px 20px 60px;
   }
   .wrap{max-width:1100px;margin:0 auto;}
-
-  header{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    border-bottom:1px solid var(--border);
-    padding-bottom:16px; margin-bottom:16px;
-    flex-wrap:wrap; gap:12px;
-  }
-  .brand{display:flex; flex-direction:column; gap:6px;}
-  .brand .mark{font-size:12px; letter-spacing:0.35em; color:var(--text-faint); font-weight:600;}
-  .brand h1{margin:0; font-size:28px; letter-spacing:0.02em; font-weight:800;}
-  .clock{text-align:right; font-size:13px; color:var(--text-dim); line-height:1.6;}
-  .clock b{color:var(--text); font-size:15px; font-variant-numeric:tabular-nums;}
-
-  .feedstrip{display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;}
-  .feedchip{
-    display:flex; align-items:center; gap:8px; padding:8px 13px; border-radius:20px;
-    background:var(--panel); border:1px solid var(--border); font-size:11.5px; color:var(--text-dim);
-  }
+  header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;flex-direction:column;gap:6px;}
+  .brand .mark{font-size:12px;letter-spacing:0.35em;color:var(--text-faint);font-weight:600;}
+  .brand h1{margin:0;font-size:28px;letter-spacing:0.02em;font-weight:800;display:flex;align-items:center;gap:12px;}
+  .brand h1 img{width:36px;height:36px;border-radius:8px;}
+  .clock{text-align:right;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .clock b{color:var(--text);font-size:15px;font-variant-numeric:tabular-nums;}
+  .feedstrip{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .feedchip{display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:20px;background:var(--panel);border:1px solid var(--border);font-size:11.5px;color:var(--text-dim);}
   .feedchip .exdot{width:8px;height:8px;border-radius:2px;flex:none;}
   .feedchip .exdot.hyperliquid{background:var(--hyperliquid);}
-  .feedchip .status{display:flex; align-items:center; gap:5px; font-weight:600;}
+  .feedchip .status{display:flex;align-items:center;gap:5px;font-weight:600;}
   .feedchip .status .pulse{width:6px;height:6px;border-radius:50%;background:var(--text-faint);}
   .feedchip.live .status{color:var(--green);}
-  .feedchip.live .pulse{background:var(--green); box-shadow:0 0 0 3px var(--green-dim); animation:pulse 1.6s ease-in-out infinite;}
+  .feedchip.live .pulse{background:var(--green);box-shadow:0 0 0 3px var(--green-dim);animation:pulse 1.6s ease-in-out infinite;}
   .feedchip.connecting .status{color:var(--amber);}
-  .feedchip.connecting .pulse{background:var(--amber); animation:pulse 0.9s ease-in-out infinite;}
+  .feedchip.connecting .pulse{background:var(--amber);animation:pulse 0.9s ease-in-out infinite;}
   .feedchip.reconnecting .status{color:var(--red);}
   .feedchip.reconnecting .pulse{background:var(--red);}
-  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.35; transform:scale(0.75);}}
-
-  .panel{background:var(--panel); border:1px solid var(--border); border-radius:10px;}
-  .controls{padding:16px 18px; margin-bottom:14px; display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end;}
-  .field{display:flex; flex-direction:column; gap:6px;}
-  .field label{font-size:10.5px; letter-spacing:0.12em; color:var(--text-faint); font-weight:600; text-transform:uppercase;}
-  .field input{
-    background:var(--panel-alt); border:1px solid var(--border); color:var(--text);
-    font-family:inherit; font-size:13px; padding:9px 11px; border-radius:7px; min-width:220px; outline:none;
-  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.75);}}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;}
+  .controls{padding:16px 18px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;}
+  .field input{background:var(--panel-alt);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;padding:9px 11px;border-radius:7px;min-width:220px;outline:none;}
   .field input:focus{border-color:var(--text-faint);}
-  .field.small input{min-width:90px;}
-  .btn{
-    font-family:inherit; font-size:12.5px; font-weight:600; letter-spacing:0.03em;
-    padding:10px 16px; border-radius:7px; cursor:pointer; border:1px solid var(--border);
-    background:var(--panel-alt); color:var(--text); transition:border-color .15s, color .15s;
-    display:inline-flex; align-items:center; gap:7px;
-  }
-  .btn:hover{border-color:var(--text-dim); color:#fff;}
-  .btn.primary{background:var(--green-dim); border-color:#1e5c3d; color:var(--green);}
+  .field.small input{min-width:120px;}
+  .btn{font-family:inherit;font-size:12.5px;font-weight:600;letter-spacing:0.03em;padding:10px 16px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--panel-alt);color:var(--text);transition:border-color .15s,color .15s;display:inline-flex;align-items:center;gap:7px;}
+  .btn:hover{border-color:var(--text-dim);color:#fff;}
+  .btn.primary{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
   .btn.primary:hover{border-color:var(--green);}
-  .btn.on{background:var(--green-dim); border-color:#1e5c3d; color:var(--green);}
-  .btn:disabled{opacity:.5; cursor:default;}
+  .btn.on{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
+  .btn:disabled{opacity:.5;cursor:default;}
   .spacer{flex:1;}
-
-  .authbar{
-    padding:12px 18px; margin-bottom:14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  }
-  .authbar .who{font-size:12.5px; color:var(--text-dim); display:flex; align-items:center; gap:8px;}
+  .authbar{padding:12px 18px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .authbar .who{font-size:12.5px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
   .authbar .who b{color:var(--text);}
-
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(5,7,9,0.72); backdrop-filter:blur(2px);
-    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
-  }
+  .modal-overlay{position:fixed;inset:0;background:rgba(5,7,9,0.72);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
   .modal-overlay.open{display:flex;}
-  .modal-box{
-    width:100%; max-width:360px; background:var(--panel); border:1px solid var(--border);
-    border-radius:12px; padding:22px; position:relative;
-  }
-  .modal-box h2{margin:0 0 4px; font-size:16px; letter-spacing:0.02em;}
-  .modal-box .sub{font-size:11.5px; color:var(--text-dim); margin-bottom:16px;}
-  .modal-close{
-    position:absolute; top:14px; right:14px; background:none; border:none; color:var(--text-faint);
-    cursor:pointer; font-size:16px; line-height:1; padding:4px;
-  }
+  .modal-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;}
+  .modal-box h2{margin:0 0 4px;font-size:16px;letter-spacing:0.02em;}
+  .modal-box .sub{font-size:11.5px;color:var(--text-dim);margin-bottom:16px;}
+  .modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-faint);cursor:pointer;font-size:16px;line-height:1;padding:4px;}
   .modal-close:hover{color:var(--text);}
-  .modal-field{display:flex; flex-direction:column; gap:5px; margin-bottom:12px;}
-  .modal-field label{font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); font-weight:600;}
-  .modal-field input{
-    background:var(--panel-alt); border:1px solid var(--border); color:var(--text);
-    font-family:inherit; font-size:13px; padding:10px 11px; border-radius:7px; outline:none; width:100%;
-  }
+  .modal-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+  .modal-field label{font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;}
+  .modal-field input{background:var(--panel-alt);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;padding:10px 11px;border-radius:7px;outline:none;width:100%;}
   .modal-field input:focus{border-color:var(--text-dim);}
-  .modal-submit{width:100%; justify-content:center; padding:11px; font-size:13px; margin-top:4px;}
-  .modal-error{font-size:11.5px; color:var(--red); margin-top:10px; min-height:14px;}
+  .modal-submit{width:100%;justify-content:center;padding:11px;font-size:13px;margin-top:4px;}
+  .modal-error{font-size:11.5px;color:var(--red);margin-top:10px;min-height:14px;}
   .modal-error.ok{color:var(--green);}
-  .modal-forgot{
-    display:block; text-align:center; margin-top:14px; font-size:11.5px; color:var(--text-dim);
-    background:none; border:none; cursor:pointer; text-decoration:underline; text-underline-offset:2px;
-    font-family:inherit; width:100%;
-  }
+  .modal-forgot{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--text-dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:inherit;width:100%;}
   .modal-forgot:hover{color:var(--text);}
-  .syncbadge{
-    font-size:10.5px; padding:4px 9px; border-radius:20px; border:1px solid var(--border); color:var(--text-faint);
-    display:flex; align-items:center; gap:6px;
-  }
-  .syncbadge.on{color:var(--blue); border-color:#1d3a54;}
-
-  .coin-panel{margin-bottom:16px; overflow:hidden;}
-  .coin-head{
-    padding:13px 18px; border-bottom:1px solid var(--border-soft); background:var(--panel-alt);
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .coin-head .title{font-size:14px; font-weight:700; letter-spacing:0.02em;}
-  .coin-head .title small{font-size:11px; color:var(--text-faint); font-weight:500; margin-left:8px;}
-
-  table{width:100%; border-collapse:collapse; font-size:12.5px;}
-  thead th{
-    text-align:left; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--text-faint); font-weight:600; padding:9px 18px; border-bottom:1px solid var(--border-soft);
-  }
-  tbody td{padding:11px 18px; border-bottom:1px solid var(--border-soft); vertical-align:middle;}
+  .syncbadge{font-size:10.5px;padding:4px 9px;border-radius:20px;border:1px solid var(--border);color:var(--text-faint);display:flex;align-items:center;gap:6px;}
+  .syncbadge.on{color:var(--blue);border-color:#1d3a54;}
+  .coin-panel{margin-bottom:16px;overflow:hidden;}
+  .coin-head{padding:13px 18px;border-bottom:1px solid var(--border-soft);background:var(--panel-alt);display:flex;align-items:center;justify-content:space-between;}
+  .coin-head .title{font-size:14px;font-weight:700;letter-spacing:0.02em;}
+  .coin-head .title small{font-size:11px;color:var(--text-faint);font-weight:500;margin-left:8px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  thead th{text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;padding:9px 18px;border-bottom:1px solid var(--border-soft);}
+  tbody td{padding:11px 18px;border-bottom:1px solid var(--border-soft);vertical-align:middle;}
   tbody tr:last-child td{border-bottom:none;}
   tbody tr{transition:background-color .4s ease;}
-  .coin-cell{font-weight:700; font-size:13px;}
-  .rate{font-variant-numeric:tabular-nums; font-weight:700;}
+  .coin-cell{font-weight:700;font-size:13px;}
+  .rate{font-variant-numeric:tabular-nums;font-weight:700;}
   .rate.pos{color:var(--green);}
   .rate.neg{color:var(--red);}
-  .muted{color:var(--text-dim); font-variant-numeric:tabular-nums;}
-  .delta{font-variant-numeric:tabular-nums; font-size:11.5px;}
+  .muted{color:var(--text-dim);font-variant-numeric:tabular-nums;}
+  .delta{font-variant-numeric:tabular-nums;font-size:11.5px;}
   .delta.up{color:var(--green);}
   .delta.down{color:var(--red);}
+  .delta.stable{color:var(--text-faint);}
   .na{color:var(--text-faint);}
   .missing{color:var(--amber);}
-
   tr.flash-up{animation:flashUp 1.4s ease;}
   tr.flash-down{animation:flashDown 1.4s ease;}
-  @keyframes flashUp{0%{background:var(--green-dim);} 100%{background:transparent;}}
-  @keyframes flashDown{0%{background:var(--red-dim);} 100%{background:transparent;}}
+  @keyframes flashUp{0%{background:var(--green-dim);}100%{background:transparent;}}
+  @keyframes flashDown{0%{background:var(--red-dim);}100%{background:transparent;}}
   tr.alert-row{background:var(--amber-dim);}
-
-  .log-panel{padding:14px 18px; margin-top:22px;}
-  .log-title{font-size:10.5px; letter-spacing:0.12em; color:var(--text-faint); font-weight:600; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
-  .log-title .n{background:var(--panel-alt); border:1px solid var(--border); color:var(--text-dim); border-radius:20px; padding:1px 8px; font-size:10px;}
-  .log-list{display:flex; flex-direction:column-reverse; gap:0; max-height:220px; overflow-y:auto;}
-  .log-item{font-size:12px; padding:8px 0; border-bottom:1px solid var(--border-soft); display:flex; gap:10px; color:var(--text-dim);}
+  .log-panel{padding:14px 18px;margin-top:22px;}
+  .log-title{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 8px;font-size:10px;}
+  .log-list{display:flex;flex-direction:column-reverse;gap:0;max-height:220px;overflow-y:auto;}
+  .log-item{font-size:12px;padding:8px 0;border-bottom:1px solid var(--border-soft);display:flex;gap:10px;color:var(--text-dim);}
   .log-item:last-child{border-bottom:none;}
-  .log-item .t{color:var(--text-faint); flex:none; font-variant-numeric:tabular-nums;}
+  .log-item .t{color:var(--text-faint);flex:none;font-variant-numeric:tabular-nums;}
   .log-item b{color:var(--amber);}
-  .log-empty{color:var(--text-faint); font-size:12px; padding:6px 0;}
-
-  footer{margin-top:28px; text-align:center; font-size:11px; color:var(--text-faint); letter-spacing:0.04em;}
+  .log-empty{color:var(--text-faint);font-size:12px;padding:6px 0;}
+  footer{margin-top:28px;text-align:center;font-size:11px;color:var(--text-faint);letter-spacing:0.04em;}
   a{color:inherit;}
   ::-webkit-scrollbar{width:8px;}
-  ::-webkit-scrollbar-thumb{background:var(--border); border-radius:4px;}
-
-  @media (max-width:640px){
-    .controls{flex-direction:column; align-items:stretch;}
-    .field input{min-width:0; width:100%;}
-  }
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  @media (max-width:640px){.controls{flex-direction:column;align-items:stretch;}.field input{min-width:0;width:100%;}}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header>
     <div class="brand">
       <div class="mark">HYPERLIQUID MONITOR · REST POLLING</div>
-      <h1>⚡ FUNDING / WATCH</h1>
+      <h1><img src="gemini-svg.svg" alt=""> FUNDING / WATCH</h1>
     </div>
-    <div class="clock">
-      UTC <b id="clockUtc">--:--:--</b><br>
-      последнее событие: <b id="lastUpdate">—</b>
-    </div>
+    <div class="clock">UTC <b id="clockUtc">--:--:--</b><br>последнее событие: <b id="lastUpdate">—</b></div>
   </header>
-
   <div class="feedstrip" id="feedStrip">
     <div class="feedchip connecting" id="chip-hyperliquid"><span class="exdot hyperliquid"></span>Hyperliquid<span class="status"><span class="pulse"></span><span id="chiptxt-hyperliquid">connecting</span></span></div>
   </div>
-
   <div class="panel authbar">
-    <div class="who" id="authWho">
-      <span>👤 не выполнен вход — настройки хранятся только в этом браузере</span>
-    </div>
+    <div class="who" id="authWho"><span> не выполнен вход — настройки хранятся только в этом браузере</span></div>
     <div class="spacer"></div>
     <span class="syncbadge" id="syncBadge">☁ облако выкл</span>
     <button class="btn" id="signInBtn">Войти по почте</button>
     <button class="btn" id="signOutBtn" style="display:none;">Выйти</button>
   </div>
-
   <div class="modal-overlay" id="authModal">
     <div class="modal-box">
       <button class="modal-close" id="authModalClose" aria-label="Закрыть">✕</button>
       <h2>Вход</h2>
       <div class="sub">Настройки будут синхронизированы через ваш Firebase-проект.</div>
       <form id="authForm">
-        <div class="modal-field">
-          <label>Email</label>
-          <input type="email" id="authEmail" autocomplete="email" required placeholder="you@example.com">
-        </div>
-        <div class="modal-field">
-          <label>Пароль</label>
-          <input type="password" id="authPassword" autocomplete="current-password" required placeholder="минимум 6 символов">
-        </div>
+        <div class="modal-field"><label>Email</label><input type="email" id="authEmail" autocomplete="email" required placeholder="you@example.com"></div>
+        <div class="modal-field"><label>Пароль</label><input type="password" id="authPassword" autocomplete="current-password" required placeholder="минимум 6 символов"></div>
         <button type="submit" class="btn primary modal-submit" id="authSubmitBtn">Войти</button>
         <div class="modal-error" id="authError"></div>
       </form>
       <button class="modal-forgot" id="authForgotBtn">Забыли пароль?</button>
     </div>
   </div>
-
   <div class="panel controls">
-    <div class="field">
-      <label>Монеты (через запятую)</label>
-      <input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false">
-    </div>
-    <div class="field small">
-      <label>Порог алерта, п.п.</label>
-      <input id="thresholdInput" type="number" step="0.001" min="0" value="0.02">
-    </div>
+    <div class="field"><label>Монеты (через запятую)</label><input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false"></div>
+    <div class="field small"><label>Порог алерта, п.п.</label><input id="thresholdInput" type="text" value="0.02" placeholder="0.02"></div>
     <button class="btn primary" id="applyBtn">✓ Применить</button>
     <div class="spacer"></div>
     <button class="btn" id="notifyBtn"> Включить уведомления</button>
   </div>
-
   <div id="coinsContainer"></div>
-
   <div class="panel log-panel">
     <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span></div>
-    <div class="log-list" id="logList">
-      <div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>
-    </div>
+    <div class="log-list" id="logList"><div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div></div>
   </div>
-
-  <footer>
-    Hyperliquid REST API — polling каждые 5 секунд, без бэкенда · настройки опционально синхронизируются через ваш собственный Firebase проект
-  </footer>
+  <footer>Hyperliquid REST API — polling каждые 5 секунд, без бэкенда · настройки опционально синхронизируются через ваш собственный Firebase проект</footer>
 </div>
 
 <script type="module">
@@ -276,20 +174,12 @@ import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/fireb
 
 (function(){
 "use strict";
-
 const $ = (id) => document.getElementById(id);
-
 const EXCHANGE_INTERVAL = 1;
 const POLL_INTERVAL = 5000;
-
-let coins = [];
-let thresholdPct = 0.02;
-let prevRates = {};
-let lastAlertTs = {};
-let logEntries = [];
-let notifGranted = false;
-let pollTimer = null;
-let pollRunning = false;
+const PP_DECIMALS = 6;
+let coins = [], thresholdPct = 0.02, prevRates = {}, lastAlertTs = {}, logEntries = [], lastDeltaValues = {};
+let notifGranted = false, pollTimer = null, pollRunning = false, pollCounter = 0;
 
 function fmtPct(x, digits){ if(x===null||x===undefined||isNaN(x)) return null; return (x*100).toFixed(digits===undefined?4:digits)+'%'; }
 function fmtApr(x){ if(x===null||x===undefined||isNaN(x)) return null; return x.toFixed(1)+'%'; }
@@ -298,48 +188,22 @@ function nowHHMMSS(){ return new Date().toTimeString().slice(0,8); }
 function ensureSkeleton(){
   const container = $('coinsContainer');
   container.innerHTML = '';
-  
   const panel = document.createElement('div');
   panel.className = 'panel coin-panel';
   panel.innerHTML = `
-    <div class="coin-head">
-      <div class="title">FUNDING RATES <small>Hyperliquid PERP</small></div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Монета</th>
-          <th>Funding</th>
-          <th>Интервал</th>
-          <th>APR (норм.)</th>
-          <th>Δ пред. событие</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${coins.map(coin => `
-          <tr id="row-${coin}">
-            <td class="coin-cell">${coin}</td>
-            <td class="rate na" id="rate-${coin}">—</td>
-            <td class="muted">${EXCHANGE_INTERVAL}h</td>
-            <td class="muted na" id="apr-${coin}">—</td>
-            <td class="delta na" id="delta-${coin}">—</td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
+    <div class="coin-head"><div class="title">FUNDING RATES <small>Hyperliquid PERP</small></div></div>
+    <table><thead><tr><th>Монета</th><th>Funding</th><th>Интервал</th><th>APR (норм.)</th><th>Δ пред. событие</th></tr></thead>
+    <tbody>${coins.map(coin => `<tr id="row-${coin}"><td class="coin-cell">${coin}</td><td class="rate na" id="rate-${coin}">—</td><td class="muted">${EXCHANGE_INTERVAL}h</td><td class="muted na" id="apr-${coin}">—</td><td class="delta na" id="delta-${coin}">—</td></tr>`).join('')}</tbody></table>`;
   container.appendChild(panel);
 }
 
 function fireAlert(coin, prevRate, newRate, diffPP){
   const t = nowHHMMSS();
-  const msg = `Hyperliquid ${coin}: ${fmtPct(prevRate,4)} → ${fmtPct(newRate,4)} (${diffPP>0?'+':''}${diffPP.toFixed(4)}pp)`;
+  const msg = `Hyperliquid ${coin}: ${fmtPct(prevRate,4)} → ${fmtPct(newRate,4)} (${diffPP>0?'+':''}${diffPP.toFixed(PP_DECIMALS)}pp)`;
   logEntries.push({t, msg});
   if(logEntries.length > 80) logEntries.shift();
   renderLog();
-  if(notifGranted){
-    try{ new Notification('⚡ Funding сдвиг: '+coin, {body: msg, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
-  }
+  if(notifGranted){ try{ new Notification(' Funding сдвиг: '+coin, {body: msg, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){} }
 }
 
 function renderLog(){
@@ -351,39 +215,36 @@ function renderLog(){
 
 function handleUpdate(coin, rate, mark){
   if(!coins.includes(coin)) return;
-  
-  const rateEl = $(`rate-${coin}`);
-  const aprEl = $(`apr-${coin}`);
-  const deltaEl = $(`delta-${coin}`);
-  const rowEl = $(`row-${coin}`);
+  const rateEl = $(`rate-${coin}`), aprEl = $(`apr-${coin}`), deltaEl = $(`delta-${coin}`), rowEl = $(`row-${coin}`);
   if(!rateEl || rate===null || isNaN(rate)) return;
-
   rateEl.textContent = fmtPct(rate,4);
   rateEl.className = 'rate ' + (rate>=0 ? 'pos' : 'neg');
   const apr = rate * (24/EXCHANGE_INTERVAL) * 365 * 100;
   aprEl.textContent = fmtApr(apr);
   aprEl.className = 'muted';
-
   const prev = prevRates[coin];
-  if(prev !== undefined && prev !== rate){
+  if(prev !== undefined){
     const diffPP = (rate - prev) * 100;
-    deltaEl.textContent = (diffPP>0?'+':'')+diffPP.toFixed(4)+'pp';
-    deltaEl.className = 'delta ' + (diffPP>0 ? 'up' : 'down');
-    rowEl.classList.remove('flash-up','flash-down');
-    void rowEl.offsetWidth;
-    rowEl.classList.add(diffPP>0 ? 'flash-up' : 'flash-down');
-
-    if(Math.abs(diffPP) >= thresholdPct){
-      rowEl.classList.add('alert-row');
-      const lastAlert = lastAlertTs[coin] || 0;
-      if(Date.now() - lastAlert > 30000){
-        fireAlert(coin, prev, rate, diffPP);
-        lastAlertTs[coin] = Date.now();
-      }
+    if(diffPP !== 0){
+      const deltaText = (diffPP>0?'+':'')+diffPP.toFixed(PP_DECIMALS)+'pp';
+      deltaEl.textContent = deltaText;
+      deltaEl.className = 'delta ' + (diffPP>0 ? 'up' : 'down');
+      lastDeltaValues[coin] = deltaText;
+      rowEl.classList.remove('flash-up','flash-down');
+      void rowEl.offsetWidth;
+      rowEl.classList.add(diffPP>0 ? 'flash-up' : 'flash-down');
+      if(Math.abs(diffPP) >= thresholdPct){
+        rowEl.classList.add('alert-row');
+        const lastAlert = lastAlertTs[coin] || 0;
+        if(Date.now() - lastAlert > 30000){ fireAlert(coin, prev, rate, diffPP); lastAlertTs[coin] = Date.now(); }
+      } else { rowEl.classList.remove('alert-row'); }
     } else {
-      rowEl.classList.remove('alert-row');
+      const lastDelta = lastDeltaValues[coin] || '0.000000pp';
+      deltaEl.textContent = '=' + lastDelta;
+      deltaEl.className = 'delta stable';
+      rowEl.classList.remove('alert-row','flash-up','flash-down');
     }
-  } else if(prev === undefined){
+  } else {
     deltaEl.textContent = 'первое событие';
     deltaEl.className = 'delta muted';
   }
@@ -401,176 +262,76 @@ function setChip(status){
 async function pollFunding(){
   if(pollRunning) return;
   pollRunning = true;
-  
+  pollCounter++;
   try{
-    const res = await fetch('https://api.hyperliquid.xyz/info', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({type:'metaAndAssetCtxs'})
-    });
-    
-    if(!res.ok){
-      setChip('reconnecting');
-      return;
-    }
-    
+    const res = await fetch('https://api.hyperliquid.xyz/info', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({type:'metaAndAssetCtxs'})});
+    if(!res.ok){ setChip('reconnecting'); return; }
     const j = await res.json();
-    const universe = j[0]?.universe||[];
-    const ctxs = j[1]||[];
-    const map = {};
+    const universe = j[0]?.universe||[], ctxs = j[1]||[], map = {};
     universe.forEach((u,i)=>{ if(ctxs[i]) map[u.name]=ctxs[i]; });
-    
     setChip('live');
-    
     coins.forEach(c=>{
       const d = map[c];
-      if(d && d.funding !== undefined){
-        handleUpdate(c, parseFloat(d.funding), d.markPx!==undefined?parseFloat(d.markPx):null);
-      } else {
-        const rateEl = $(`rate-${c}`);
-        const deltaEl = $(`delta-${c}`);
-        if(rateEl){ rateEl.textContent = 'нет данных'; rateEl.className = 'rate na'; }
-        if(deltaEl){ deltaEl.textContent = 'монета не найдена'; deltaEl.className = 'delta missing'; }
-      }
+      if(d && d.funding !== undefined){ handleUpdate(c, parseFloat(d.funding), d.markPx!==undefined?parseFloat(d.markPx):null); }
+      else { const rateEl = $(`rate-${c}`), deltaEl = $(`delta-${c}`); if(rateEl){ rateEl.textContent = 'нет данных'; rateEl.className = 'rate na'; } if(deltaEl){ deltaEl.textContent = 'монета не найдена'; deltaEl.className = 'delta missing'; } }
     });
-  }catch(e){
-    setChip('reconnecting');
-    console.error('Poll error:', e);
-  }finally{
-    pollRunning = false;
-  }
+  }catch(e){ setChip('reconnecting'); }
+  finally{ pollRunning = false; }
 }
 
-function startPolling(){
-  if(pollTimer) clearInterval(pollTimer);
-  setChip('connecting');
-  pollFunding();
-  pollTimer = setInterval(pollFunding, POLL_INTERVAL);
-}
-
-function stopPolling(){
-  if(pollTimer) clearInterval(pollTimer);
-  pollTimer = null;
-}
-
+function startPolling(){ if(pollTimer) clearInterval(pollTimer); pollCounter = 0; setChip('connecting'); pollFunding(); pollTimer = setInterval(pollFunding, POLL_INTERVAL); }
 setInterval(()=>{ $('clockUtc').textContent = new Date().toUTCString().slice(17,25); }, 1000);
-
 function parseCoinsInput(){ return $('coinsInput').value.split(',').map(s=>s.trim().toUpperCase()).filter(Boolean); }
+
+function parseThreshold(val){
+  const n = parseFloat(String(val).replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0.02 : n;
+}
 
 function applySettings(persist){
   coins = parseCoinsInput();
-  thresholdPct = parseFloat($('thresholdInput').value) || 0.02;
-  prevRates = {}; 
-  lastAlertTs = {};
+  thresholdPct = parseThreshold($('thresholdInput').value);
+  prevRates = {}; lastAlertTs = {}; lastDeltaValues = {};
   ensureSkeleton();
   startPolling();
   if(persist !== false) persistSettings();
 }
 
 $('applyBtn').addEventListener('click', ()=> applySettings());
-
 $('notifyBtn').addEventListener('click', async ()=>{
   if(!('Notification' in window)){ alert('Браузер не поддерживает уведомления.'); return; }
   const perm = await Notification.requestPermission();
   notifGranted = perm === 'granted';
-  if(notifGranted){
-    $('notifyBtn').innerHTML = '✅ Уведомления включены';
-    $('notifyBtn').classList.add('on');
-    new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'});
-  } else {
-    $('notifyBtn').textContent = '🔕 Уведомления заблокированы';
-  }
+  if(notifGranted){ $('notifyBtn').innerHTML = '✅ Уведомления включены'; $('notifyBtn').classList.add('on'); new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'}); }
+  else { $('notifyBtn').textContent = ' Уведомления заблокированы'; }
 });
-if('Notification' in window && Notification.permission==='granted'){
-  notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on');
-}
+if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
 const LS_KEY = 'fw_local_settings';
-function persistLocal(){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify({coins: $('coinsInput').value, threshold: thresholdPct})); }catch(e){}
-}
-function restoreLocal(){
-  try{
-    const raw = JSON.parse(localStorage.getItem(LS_KEY)||'null');
-    if(raw){ $('coinsInput').value = raw.coins || $('coinsInput').value; if(raw.threshold!==undefined) $('thresholdInput').value = raw.threshold; }
-  }catch(e){}
-}
+function persistLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({coins: $('coinsInput').value, threshold: thresholdPct})); }catch(e){} }
+function restoreLocal(){ try{ const raw = JSON.parse(localStorage.getItem(LS_KEY)||'null'); if(raw){ $('coinsInput').value = raw.coins || $('coinsInput').value; if(raw.threshold!==undefined) $('thresholdInput').value = raw.threshold; } }catch(e){} }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBmMeNS2nfJamfo7Ctr05IwIOilKIYUQfU",
-  authDomain: "funding-watch-3c7cb.firebaseapp.com",
-  projectId: "funding-watch-3c7cb",
-  storageBucket: "funding-watch-3c7cb.firebasestorage.app",
-  messagingSenderId: "236128180527",
-  appId: "1:236128180527:web:319d3fc03972a05d09a9da"
-};
-
+const firebaseConfig = { apiKey: "AIzaSyBmMeNS2nfJamfo7Ctr05IwIOilKIYUQfU", authDomain: "funding-watch-3c7cb.firebaseapp.com", projectId: "funding-watch-3c7cb", storageBucket: "funding-watch-3c7cb.firebasestorage.app", messagingSenderId: "236128180527", appId: "1:236128180527:web:319d3fc03972a05d09a9da" };
 let fbApp=null, fbAuth=null, fbDb=null, currentUser=null;
 
 async function initFirebase(cfg){
-  try{
-    fbApp = initializeApp(cfg);
-    fbAuth = getAuth(fbApp);
-    fbDb = getFirestore(fbApp);
-    onAuthStateChanged(fbAuth, async (user)=>{
-      currentUser = user;
-      renderAuthUI();
-      if(user) await loadSettingsFromCloud();
-    });
-  }catch(e){ console.error('Firebase init error:', e); }
+  try{ fbApp = initializeApp(cfg); fbAuth = getAuth(fbApp); fbDb = getFirestore(fbApp); onAuthStateChanged(fbAuth, async (user)=>{ currentUser = user; renderAuthUI(); if(user) await loadSettingsFromCloud(); }); }
+  catch(e){ console.error('Firebase init error:', e); }
 }
 
 function renderAuthUI(){
   const who = $('authWho'), signIn = $('signInBtn'), signOutB = $('signOutBtn'), badge = $('syncBadge');
-  if(currentUser){
-    who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`;
-    signIn.style.display='none'; signOutB.style.display='inline-flex';
-    badge.textContent = '☁ синхронизировано'; badge.classList.add('on');
-  } else {
-    who.innerHTML = `<span>👤 не выполнен вход — настройки хранятся только в этом браузере</span>`;
-    signIn.style.display='inline-flex'; signOutB.style.display='none';
-    badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on');
-  }
+  if(currentUser){ who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`; signIn.style.display='none'; signOutB.style.display='inline-flex'; badge.textContent = '☁ синхронизировано'; badge.classList.add('on'); }
+  else { who.innerHTML = `<span> не выполнен вход — настройки хранятся только в этом браузере</span>`; signIn.style.display='inline-flex'; signOutB.style.display='none'; badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on'); }
 }
 
-async function saveSettingsToCloud(){
-  if(!currentUser || !fbDb) return;
-  try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){}
-}
-async function loadSettingsFromCloud(){
-  if(!currentUser || !fbDb) return;
-  try{
-    const snap = await getDoc(doc(fbDb,'users',currentUser.uid,'settings','main'));
-    if(snap.exists()){
-      const d = snap.data();
-      if(d.coins) $('coinsInput').value = d.coins;
-      if(d.threshold !== undefined) $('thresholdInput').value = d.threshold;
-      applySettings(false);
-    }
-  }catch(e){}
-}
+async function saveSettingsToCloud(){ if(!currentUser || !fbDb) return; try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){} }
+async function loadSettingsFromCloud(){ if(!currentUser || !fbDb) return; try{ const snap = await getDoc(doc(fbDb,'users',currentUser.uid,'settings','main')); if(snap.exists()){ const d = snap.data(); if(d.coins) $('coinsInput').value = d.coins; if(d.threshold !== undefined) $('thresholdInput').value = d.threshold; applySettings(false); } }catch(e){} }
 function persistSettings(){ persistLocal(); saveSettingsToCloud(); }
 
-function openAuthModal(){
-  if(!fbAuth) return;
-  $('authError').textContent=''; $('authError').className='modal-error';
-  $('authModal').classList.add('open');
-  $('authEmail').focus();
-}
+function openAuthModal(){ if(!fbAuth) return; $('authError').textContent=''; $('authError').className='modal-error'; $('authModal').classList.add('open'); $('authEmail').focus(); }
 function closeAuthModal(){ $('authModal').classList.remove('open'); }
-
-function authErrorText(code){
-  const map = {
-    'auth/invalid-email':'Некорректный email.',
-    'auth/missing-password':'Введите пароль.',
-    'auth/invalid-credential':'Неверный email или пароль.',
-    'auth/wrong-password':'Неверный email или пароль.',
-    'auth/user-not-found':'Аккаунт с таким email не найден.',
-    'auth/too-many-requests':'Слишком много попыток. Подождите немного.',
-    'auth/network-request-failed':'Проблема с сетью.',
-  };
-  return map[code] || ('Ошибка: ' + code);
-}
+function authErrorText(code){ const map = {'auth/invalid-email':'Некорректный email.','auth/missing-password':'Введите пароль.','auth/invalid-credential':'Неверный email или пароль.','auth/wrong-password':'Неверный email или пароль.','auth/user-not-found':'Аккаунт с таким email не найден.','auth/too-many-requests':'Слишком много попыток. Подождите немного.','auth/network-request-failed':'Проблема с сетью.'}; return map[code] || ('Ошибка: ' + code); }
 
 $('signInBtn').addEventListener('click', openAuthModal);
 $('authModalClose').addEventListener('click', closeAuthModal);
@@ -579,28 +340,18 @@ document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeAuthModal(
 
 $('authForm').addEventListener('submit', async (e)=>{
   e.preventDefault();
-  const email = $('authEmail').value.trim();
-  const pass = $('authPassword').value;
-  const errEl = $('authError');
-  errEl.textContent=''; errEl.className='modal-error';
-  $('authSubmitBtn').disabled = true;
-  try{
-    await signInWithEmailAndPassword(fbAuth, email, pass);
-    closeAuthModal();
-    $('authForm').reset();
-  }catch(err){ errEl.textContent = authErrorText(err.code); }
+  const email = $('authEmail').value.trim(), pass = $('authPassword').value, errEl = $('authError');
+  errEl.textContent=''; errEl.className='modal-error'; $('authSubmitBtn').disabled = true;
+  try{ await signInWithEmailAndPassword(fbAuth, email, pass); closeAuthModal(); $('authForm').reset(); }
+  catch(err){ errEl.textContent = authErrorText(err.code); }
   finally{ $('authSubmitBtn').disabled = false; }
 });
 
 $('authForgotBtn').addEventListener('click', async ()=>{
-  const email = $('authEmail').value.trim();
-  const errEl = $('authError');
+  const email = $('authEmail').value.trim(), errEl = $('authError');
   if(!email){ errEl.textContent='Введите email в поле выше.'; errEl.className='modal-error'; $('authEmail').focus(); return; }
-  try{
-    await sendPasswordResetEmail(fbAuth, email);
-    errEl.textContent = 'Письмо для сброса пароля отправлено на ' + email + '.';
-    errEl.className = 'modal-error ok';
-  }catch(err){ errEl.textContent = authErrorText(err.code); errEl.className = 'modal-error'; }
+  try{ await sendPasswordResetEmail(fbAuth, email); errEl.textContent = 'Письмо для сброса пароля отправлено на ' + email + '.'; errEl.className = 'modal-error ok'; }
+  catch(err){ errEl.textContent = authErrorText(err.code); errEl.className = 'modal-error'; }
 });
 
 $('signOutBtn').addEventListener('click', async ()=>{ if(fbAuth) await signOut(fbAuth); });
@@ -608,7 +359,6 @@ $('signOutBtn').addEventListener('click', async ()=>{ if(fbAuth) await signOut(f
 restoreLocal();
 applySettings(false);
 initFirebase(firebaseConfig);
-
 })();
 </script>
 </body>
