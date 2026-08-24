@@ -45,13 +45,21 @@
   .feedchip.reconnecting .pulse{background:var(--red);}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.75);}}
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;}
-  .controls{padding:16px 18px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;}
+  .controls{padding:16px 18px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;}
   .field{display:flex;flex-direction:column;gap:6px;}
   .field label{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;}
-  .field input{background:var(--panel-alt);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;padding:9px 11px;border-radius:7px;min-width:220px;outline:none;}
+  .field input{width: 100%;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;padding:9px 11px;border-radius:7px;outline:none;transition:border-color .15s,box-shadow .15s;}
   .field input:focus{border-color:var(--text-faint);}
-  .field.small input{min-width:120px;}
-  .btn{font-family:inherit;font-size:12.5px;font-weight:600;letter-spacing:0.03em;padding:10px 16px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--panel-alt);color:var(--text);transition:border-color .15s,color .15s;display:inline-flex;align-items:center;gap:7px;}
+  .field input.invalid{border-color:var(--red);box-shadow:0 0 0 2px var(--red-dim);}
+  .field input.valid{border-color:var(--green);}
+  .field .hint{font-size:10.5px;color:var(--text-faint);letter-spacing:0.02em;line-height:1.4;margin-top:2px;max-width:320px;}
+  .field .hint b{color:var(--text-dim);font-weight:600;}
+  .field .hint.err{color:var(--red);}
+  .field .hint.ok{color:var(--green);}
+  .field.coins{flex:1 1 300px;min-width:240px;}
+  .field.coins input{width:100%;}
+  .field.threshold{flex:0 0 auto;}
+  .btn{font-size:12.5px;font-weight:600;letter-spacing:0.03em;padding:10px 16px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--panel-alt);color:var(--text);transition:border-color .15s,color .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
   .btn:hover{border-color:var(--text-dim);color:#fff;}
   .btn.primary{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
   .btn.primary:hover{border-color:var(--green);}
@@ -146,7 +154,94 @@
   a{color:inherit;}
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-  @media (max-width:640px){.controls{flex-direction:column;align-items:stretch;}.field input{min-width:0;width:100%;}}
+
+  @media (max-width:768px){
+    body{padding:16px 12px 40px;}
+    .brand h1{font-size:22px;}
+    .brand h1 img{width:28px;height:28px;}
+    .clock{font-size:11px;text-align:left;width:100%;}
+    .clock b{font-size:13px;}
+    .controls{padding:12px;gap:12px;}
+    .field.coins input{min-width:0;}
+    .field.threshold input{width:140px;}
+    .btn{padding:9px 12px;font-size:11.5px;}
+    .authbar{padding:10px 12px;gap:8px;}
+    .authbar .who{font-size:11px;width:100%;order:3;}
+    .syncbadge{font-size:9.5px;padding:3px 7px;}
+    .coin-head{padding:11px 12px;}
+    .coin-head .title{font-size:13px;}
+    thead th{padding:8px 12px;font-size:9px;}
+    tbody td{padding:9px 12px;}
+    .log-panel{padding:12px;margin-top:16px;}
+    .log-list{max-height:200px;}
+    .btn{margin-top: 10px;}
+  }
+
+  @media (max-width:640px){
+    .controls{flex-direction:column;align-items:stretch;}
+    .field.coins,.field.threshold{width:100%;flex:1 1 auto;}
+    .field.threshold input{width:100%;}
+    .btn{width:100%;justify-content:center;}
+    .authbar{flex-direction:column;align-items:stretch;gap:8px;}
+    .authbar .who{order:1;}
+    .authbar .spacer{display:none;}
+    .authbar .syncbadge{order:2;align-self:flex-start;}
+    .authbar #signInBtn,.authbar #signOutBtn{order:3;width:100%;justify-content:center;}
+    .btn{margin-top: 0;}
+  }
+
+  @media (max-width:480px){
+    body{padding:12px 8px 30px;}
+    .brand .mark{font-size:10px;letter-spacing:0.25em;}
+    .brand h1{font-size:18px;gap:8px;}
+    .brand h1 img{width:24px;height:24px;}
+    .feedchip{padding:6px 10px;font-size:10.5px;}
+    
+    .coin-panel table{display:block;}
+    .coin-panel thead{display:none;}
+    .coin-panel tbody{display:block;}
+    .coin-panel tbody tr{
+      display:block;
+      padding:12px;
+      margin-bottom:8px;
+      border:1px solid var(--border-soft);
+      border-radius:8px;
+      background:var(--panel-alt);
+    }
+    .coin-panel tbody tr:last-child{margin-bottom:0;}
+    .coin-panel tbody td{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:6px 0;
+      border-bottom:1px solid var(--border-soft);
+    }
+    .coin-panel tbody td:last-child{border-bottom:none;}
+    .coin-panel tbody td::before{
+      content:attr(data-label);
+      font-size:10px;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      color:var(--text-faint);
+      font-weight:600;
+      margin-right:12px;
+    }
+    .coin-cell{font-size:15px;font-weight:800;}
+    .rate{font-size:14px;}
+    .delta{font-size:12px;}
+    
+    .log-title{flex-wrap:wrap;gap:6px;}
+    .log-title #clearLogBtn{width:100%;margin-top:4px;}
+  }
+
+  @media (max-width:360px){
+    .brand h1{font-size:16px;}
+    .brand .mark{font-size:9px;}
+    .feedchip{font-size:9.5px;padding:5px 8px;}
+    .coin-panel tbody td{font-size:11px;}
+    .coin-cell{font-size:13px;}
+    .rate{font-size:12px;}
+  }
 </style>
 </head>
 <body>
@@ -183,8 +278,14 @@
     </div>
   </div>
   <div class="panel controls">
-    <div class="field"><label>Монеты (через запятую)</label><input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false"></div>
-    <div class="field small"><label>Порог алерта, п.п.</label><input id="thresholdInput" type="text" value="0.05" placeholder="0.05"></div>
+    <div class="field coins">
+      <input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false" placeholder="BTC, ETH, SOL">
+      <div class="hint">Список тикеров через запятую. Пример: <b>BTC, ETH, SOL, HYPE</b></div>
+    </div>
+    <div class="field threshold">
+      <input id="thresholdInput" type="text" value="0.05" placeholder="0.05" inputmode="decimal" autocomplete="off">
+      <div class="hint" id="thresholdHint">Допустимо: <b>0.000001 – 100</b> · только цифры и точка</div>
+    </div>
     <button class="btn primary" id="applyBtn">✓ Применить</button>
     <div class="spacer"></div>
     <button class="btn" id="notifyBtn"> Включить уведомления</button>
@@ -209,7 +310,10 @@ const EXCHANGE_INTERVAL = 1;
 const POLL_INTERVAL = 5000;
 const PP_DECIMALS = 6;
 const WILD_THRESHOLD = 0.000001;
-const MIN_ALERT_THRESHOLD = 0.001;
+const THRESHOLD_MIN = 0.000001;
+const THRESHOLD_MAX = 100;
+const THRESHOLD_REGEX = /^(\d+([.,]\d*)?|[.,]\d*)$/;
+
 let coins = [], thresholdPct = 0.05, prevRates = {}, lastAlertTs = {}, logEntries = [], lastDeltaValues = {};
 let notifGranted = false, pollTimer = null, pollRunning = false, pollCounter = 0;
 
@@ -251,7 +355,7 @@ function ensureSkeleton(){
   panel.innerHTML = `
     <div class="coin-head"><div class="title">FUNDING RATES <small>Hyperliquid PERP</small></div></div>
     <table><thead><tr><th>Монета</th><th>Funding</th><th>Интервал</th><th>APR (норм.)</th><th>Δ изменение</th></tr></thead>
-    <tbody>${coins.map(coin => `<tr id="row-${coin}"><td class="coin-cell">${coin}</td><td class="rate na" id="rate-${coin}">—</td><td class="muted">${EXCHANGE_INTERVAL}h</td><td class="muted na" id="apr-${coin}">—</td><td class="delta na" id="delta-${coin}">—</td></tr>`).join('')}</tbody></table>`;
+    <tbody>${coins.map(coin => `<tr id="row-${coin}"><td class="coin-cell" data-label="Монета">${coin}</td><td class="rate na" id="rate-${coin}" data-label="Funding">—</td><td class="muted" data-label="Интервал">${EXCHANGE_INTERVAL}h</td><td class="muted na" id="apr-${coin}" data-label="APR (норм.)">—</td><td class="delta na" id="delta-${coin}" data-label="Δ изменение">—</td></tr>`).join('')}</tbody></table>`;
   container.appendChild(panel);
 }
 
@@ -326,7 +430,7 @@ function handleUpdate(coin, rate, mark){
       rowEl.classList.remove('flash-up','flash-down','flash-wild','wild-row','alert-row');
       void rowEl.offsetWidth;
       rowEl.classList.add(diffPP>0 ? 'flash-up' : 'flash-down');
-      if(Math.abs(diffPP) >= MIN_ALERT_THRESHOLD && Math.abs(diffPP) >= thresholdPct){
+      if(Math.abs(diffPP) >= thresholdPct){
         rowEl.classList.add('alert-row');
         const lastAlert = lastAlertTs[coin] || 0;
         if(Date.now() - lastAlert > 30000){ fireAlert(coin, prev, rate, diffPP, false); lastAlertTs[coin] = Date.now(); }
@@ -377,14 +481,55 @@ function startPolling(){ if(pollTimer) clearInterval(pollTimer); pollCounter = 0
 setInterval(()=>{ $('clockUtc').textContent = new Date().toUTCString().slice(17,25); }, 1000);
 function parseCoinsInput(){ return $('coinsInput').value.split(',').map(s=>s.trim().toUpperCase()).filter(Boolean); }
 
+function validateThreshold(val){
+  const str = String(val).trim();
+  if(str === '') return { valid: false, value: null, error: 'Введите значение' };
+  if(!THRESHOLD_REGEX.test(str)) return { valid: false, value: null, error: 'Только цифры и одна точка/запятая' };
+  const n = parseFloat(str.replace(',', '.'));
+  if(isNaN(n)) return { valid: false, value: null, error: 'Некорректное число' };
+  if(n < THRESHOLD_MIN) return { valid: false, value: n, error: `Минимум ${THRESHOLD_MIN}` };
+  if(n > THRESHOLD_MAX) return { valid: false, value: n, error: `Максимум ${THRESHOLD_MAX}` };
+  return { valid: true, value: n, error: null };
+}
+
+function updateThresholdHint(){
+  const val = $('thresholdInput').value;
+  const hintEl = $('thresholdHint');
+  const inputEl = $('thresholdInput');
+  if(val.trim() === ''){
+    inputEl.classList.remove('invalid','valid');
+    hintEl.className = 'hint';
+    hintEl.innerHTML = `Допустимо: <b>${THRESHOLD_MIN} – ${THRESHOLD_MAX}</b> · только цифры и точка`;
+    return;
+  }
+  const res = validateThreshold(val);
+  if(res.valid){
+    inputEl.classList.remove('invalid');
+    inputEl.classList.add('valid');
+    hintEl.className = 'hint ok';
+    hintEl.textContent = `✓ Порог: ${res.value} п.п. — алерты при изменении ≥ этого значения`;
+  } else {
+    inputEl.classList.remove('valid');
+    inputEl.classList.add('invalid');
+    hintEl.className = 'hint err';
+    hintEl.textContent = `✗ ${res.error}`;
+  }
+}
+
 function parseThreshold(val){
-  const n = parseFloat(String(val).replace(',', '.'));
-  return isNaN(n) || n < 0 ? 0.05 : n;
+  const res = validateThreshold(val);
+  return res.valid ? res.value : 0.05;
 }
 
 function applySettings(persist){
+  const res = validateThreshold($('thresholdInput').value);
+  if(!res.valid){
+    updateThresholdHint();
+    thresholdPct = 0.05;
+  } else {
+    thresholdPct = res.value;
+  }
   coins = parseCoinsInput();
-  thresholdPct = parseThreshold($('thresholdInput').value);
   prevRates = {}; lastAlertTs = {}; lastDeltaValues = {};
   ensureSkeleton();
   startPolling();
@@ -392,12 +537,33 @@ function applySettings(persist){
 }
 
 $('applyBtn').addEventListener('click', ()=> applySettings());
+
+$('thresholdInput').addEventListener('input', (e)=>{
+  let v = e.target.value;
+  const cleaned = v.replace(/[^0-9.,]/g, '');
+  const dotCount = (cleaned.match(/\./g)||[]).length;
+  const commaCount = (cleaned.match(/,/g)||[]).length;
+  if(dotCount > 1 || commaCount > 1 || (dotCount > 0 && commaCount > 0)){
+    e.target.value = e.target._lastValid || '';
+  } else {
+    e.target._lastValid = cleaned;
+    e.target.value = cleaned;
+  }
+  updateThresholdHint();
+});
+$('thresholdInput').addEventListener('blur', ()=>{
+  const v = $('thresholdInput').value.replace(',', '.');
+  $('thresholdInput').value = v;
+  updateThresholdHint();
+});
+updateThresholdHint();
+
 $('notifyBtn').addEventListener('click', async ()=>{
   if(!('Notification' in window)){ alert('Браузер не поддерживает уведомления.'); return; }
   const perm = await Notification.requestPermission();
   notifGranted = perm === 'granted';
   if(notifGranted){ $('notifyBtn').innerHTML = '✅ Уведомления включены'; $('notifyBtn').classList.add('on'); new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'}); }
-  else { $('notifyBtn').textContent = ' Уведомления заблокированы'; }
+  else { $('notifyBtn').textContent = '🔕 Уведомления заблокированы'; }
 });
 if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
@@ -423,8 +589,8 @@ async function initFirebase(cfg){
 
 function renderAuthUI(){
   const who = $('authWho'), signIn = $('signInBtn'), signOutB = $('signOutBtn'), badge = $('syncBadge');
-  if(currentUser){ who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`; signIn.style.display='none'; signOutB.style.display='inline-flex'; badge.textContent = '☁ синхронизировано'; badge.classList.add('on'); }
-  else { who.innerHTML = `<span> не выполнен вход — настройки хранятся только в этом браузере</span>`; signIn.style.display='inline-flex'; signOutB.style.display='none'; badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on'); }
+  if(currentUser){ who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`; signIn.style.display='none'; signOutB.style.display='inline-flex'; badge.textContent = ' синхронизировано'; badge.classList.add('on'); }
+  else { who.innerHTML = `<span>🔒 не выполнен вход — настройки хранятся только в этом браузере</span>`; signIn.style.display='inline-flex'; signOutB.style.display='none'; badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on'); }
 }
 
 async function saveSettingsToCloud(){ if(!currentUser || !fbDb) return; try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){ console.warn('settings save failed:', e); } }

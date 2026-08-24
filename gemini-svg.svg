@@ -1,17 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Черный фон с закругленными углами -->
-  <rect width="512" height="512" rx="90" fill="#000000"/>
-  
-  <!-- Уголки прицела / мониторинга -->
-  <path d="M110 170V110H170" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M402 170V110H342" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M110 342V402H170" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M402 342V402H342" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  
-  <!-- Внешний контур глаза -->
-  <path d="M70 256C130 150 210 120 256 120C302 120 382 150 442 256C382 362 302 392 256 392C210 392 130 362 70 256Z" fill="none" stroke="#FFFFFF" stroke-width="28" stroke-linejoin="round"/>
-  
-  <!-- Зрачок (бирюзовый) -->
-  <circle cx="256" cy="256" r="75" fill="#00FFFF"/>
-  <circle cx="256" cy="256" r="30" fill="#000000"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#12161c" />
+      <stop offset="100%" stop-color="#0b0e12" />
+    </linearGradient>
+  </defs>
+
+  <!-- App Icon Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg-grad)" />
+
+  <g transform="translate(256, 256) scale(1.2)">
+    <!-- 1. Верхний ноль процента (красный контур) и минус внутри (такой же красный) -->
+    <circle cx="-70" cy="-90" r="45" fill="none" stroke="#ff3366" stroke-width="14" />
+    <rect x="-90" y="-97" width="40" height="14" rx="7" fill="#ff3366" />
+
+    <!-- 2. Нижний ноль процента (зеленый контур) и плюс внутри (такой же зеленый) -->
+    <circle cx="70" cy="90" r="45" fill="none" stroke="#00cc66" stroke-width="14" />
+    <rect x="50" y="83" width="40" height="14" rx="7" fill="#00cc66" />
+    <rect x="63" y="70" width="14" height="40" rx="7" fill="#00cc66" />
+
+    <!-- 3. Диагональ процента / разделенная линия (белая) -->
+    <line x1="110" y1="-130" x2="-110" y2="130" stroke="#ffffff" stroke-width="24" stroke-linecap="round" />
+  </g>
 </svg>
