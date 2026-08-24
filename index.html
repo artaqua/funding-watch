@@ -56,6 +56,8 @@
   .btn.primary{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
   .btn.primary:hover{border-color:var(--green);}
   .btn.on{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
+  .btn.danger{background:var(--red-dim);border-color:#5c1e1e;color:var(--red);}
+  .btn.danger:hover{border-color:var(--red);}
   .btn:disabled{opacity:.5;cursor:default;}
   .spacer{flex:1;}
   .authbar{padding:12px 18px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
@@ -118,6 +120,7 @@
   .log-panel{padding:14px 18px;margin-top:22px;}
   .log-title{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
   .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 8px;font-size:10px;}
+  .log-title .spacer{flex:1;}
   .log-list{display:flex;flex-direction:column-reverse;gap:0;max-height:260px;overflow-y:auto;}
   .log-item{font-size:12px;padding:8px 0;border-bottom:1px solid var(--border-soft);display:flex;gap:10px;color:var(--text-dim);}
   .log-item:last-child{border-bottom:none;}
@@ -188,7 +191,7 @@
   </div>
   <div id="coinsContainer"></div>
   <div class="panel log-panel">
-    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span></div>
+    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span><div class="spacer"></div><button class="btn danger" id="clearLogBtn" style="padding:6px 12px;font-size:11px;">Очистить журнал</button></div>
     <div class="log-list" id="logList"><div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div></div>
   </div>
   <footer>Hyperliquid REST API — polling каждые 5 секунд, без бэкенда · настройки опционально синхронизируются через ваш собственный Firebase проект</footer>
@@ -205,9 +208,7 @@ const $ = (id) => document.getElementById(id);
 const EXCHANGE_INTERVAL = 1;
 const POLL_INTERVAL = 5000;
 const PP_DECIMALS = 6;
-// Порог "существенности" для дикой смены — оба значения (prev и новое) должны быть >= этого порога по модулю
 const WILD_THRESHOLD = 0.000001;
-// Минимальный порог для визуального выделения (alert-row) — изменения меньше этого не подсвечиваются
 const MIN_ALERT_THRESHOLD = 0.001;
 let coins = [], thresholdPct = 0.05, prevRates = {}, lastAlertTs = {}, logEntries = [], lastDeltaValues = {};
 let notifGranted = false, pollTimer = null, pollRunning = false, pollCounter = 0;
@@ -221,6 +222,12 @@ function fmtApr(x){
   if(x===null||x===undefined||isNaN(x)) return null;
   const v = x.toFixed(1);
   return (x > 0 ? '+' : '') + v + '%';
+}
+function nowDateTime(){
+  const d = new Date();
+  const date = d.toISOString().slice(0,10);
+  const time = d.toISOString().slice(11,19);
+  return date + ' ' + time;
 }
 function nowHHMMSS(){ return new Date().toTimeString().slice(0,8); }
 
@@ -249,7 +256,7 @@ function ensureSkeleton(){
 }
 
 function fireAlert(coin, prevRate, newRate, diffPP, isWild){
-  const t = nowHHMMSS();
+  const timestamp = nowDateTime();
   const prevText = fmtPct(prevRate,4);
   const newText = fmtPct(newRate,4);
   const diffText = (diffPP>0?'+':'') + diffPP.toFixed(PP_DECIMALS);
@@ -266,9 +273,10 @@ function fireAlert(coin, prevRate, newRate, diffPP, isWild){
     msgPlain = `Hyperliquid ${coin}: ${prevText} → ${newText} (${diffText})`;
   }
 
-  logEntries.push({t, html: msgHtml, plain: msgPlain, wild: !!isWild});
+  logEntries.push({timestamp, t: timestamp, html: msgHtml, plain: msgPlain, wild: !!isWild});
   if(logEntries.length > 80) logEntries.shift();
   renderLog();
+  saveLogToCloud();
   if(notifGranted){
     try{ new Notification((isWild?'⚡ Дикая смена':'Funding сдвиг')+': '+coin, {body: msgPlain, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
   }
@@ -318,7 +326,6 @@ function handleUpdate(coin, rate, mark){
       rowEl.classList.remove('flash-up','flash-down','flash-wild','wild-row','alert-row');
       void rowEl.offsetWidth;
       rowEl.classList.add(diffPP>0 ? 'flash-up' : 'flash-down');
-      // Жёлтое выделение только если изменение >= MIN_ALERT_THRESHOLD И >= thresholdPct
       if(Math.abs(diffPP) >= MIN_ALERT_THRESHOLD && Math.abs(diffPP) >= thresholdPct){
         rowEl.classList.add('alert-row');
         const lastAlert = lastAlertTs[coin] || 0;
@@ -394,6 +401,14 @@ $('notifyBtn').addEventListener('click', async ()=>{
 });
 if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
+$('clearLogBtn').addEventListener('click', ()=>{
+  if(confirm('Очистить журнал алертов?')){
+    logEntries = [];
+    renderLog();
+    saveLogToCloud();
+  }
+});
+
 const LS_KEY = 'fw_local_settings';
 function persistLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({coins: $('coinsInput').value, threshold: thresholdPct})); }catch(e){} }
 function restoreLocal(){ try{ const raw = JSON.parse(localStorage.getItem(LS_KEY)||'null'); if(raw){ $('coinsInput').value = raw.coins || $('coinsInput').value; if(raw.threshold!==undefined) $('thresholdInput').value = raw.threshold; } }catch(e){} }
@@ -402,7 +417,7 @@ const firebaseConfig = { apiKey: "AIzaSyBmMeNS2nfJamfo7Ctr05IwIOilKIYUQfU", auth
 let fbApp=null, fbAuth=null, fbDb=null, currentUser=null;
 
 async function initFirebase(cfg){
-  try{ fbApp = initializeApp(cfg); fbAuth = getAuth(fbApp); fbDb = getFirestore(fbApp); onAuthStateChanged(fbAuth, async (user)=>{ currentUser = user; renderAuthUI(); if(user) await loadSettingsFromCloud(); }); }
+  try{ fbApp = initializeApp(cfg); fbAuth = getAuth(fbApp); fbDb = getFirestore(fbApp); onAuthStateChanged(fbAuth, async (user)=>{ currentUser = user; renderAuthUI(); if(user){ await loadSettingsFromCloud(); await loadLogFromCloud(); } }); }
   catch(e){ console.error('Firebase init error:', e); }
 }
 
@@ -412,8 +427,37 @@ function renderAuthUI(){
   else { who.innerHTML = `<span> не выполнен вход — настройки хранятся только в этом браузере</span>`; signIn.style.display='inline-flex'; signOutB.style.display='none'; badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on'); }
 }
 
-async function saveSettingsToCloud(){ if(!currentUser || !fbDb) return; try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){} }
-async function loadSettingsFromCloud(){ if(!currentUser || !fbDb) return; try{ const snap = await getDoc(doc(fbDb,'users',currentUser.uid,'settings','main')); if(snap.exists()){ const d = snap.data(); if(d.coins) $('coinsInput').value = d.coins; if(d.threshold !== undefined) $('thresholdInput').value = d.threshold; applySettings(false); } }catch(e){} }
+async function saveSettingsToCloud(){ if(!currentUser || !fbDb) return; try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){ console.warn('settings save failed:', e); } }
+async function loadSettingsFromCloud(){ if(!currentUser || !fbDb) return; try{ const snap = await getDoc(doc(fbDb,'users',currentUser.uid,'settings','main')); if(snap.exists()){ const d = snap.data(); if(d.coins) $('coinsInput').value = d.coins; if(d.threshold !== undefined) $('thresholdInput').value = d.threshold; applySettings(false); } }catch(e){ console.warn('settings load failed:', e); } }
+
+async function saveLogToCloud(){
+  if(!currentUser || !fbDb) return;
+  try{
+    const logData = logEntries.map(e => ({
+      timestamp: e.timestamp,
+      t: e.t,
+      html: e.html,
+      plain: e.plain,
+      wild: e.wild
+    }));
+    await setDoc(doc(fbDb,'users',currentUser.uid,'logs','main'), { entries: logData, updatedAt: Date.now() });
+  }catch(e){ console.warn('log save failed:', e); }
+}
+
+async function loadLogFromCloud(){
+  if(!currentUser || !fbDb) return;
+  try{
+    const snap = await getDoc(doc(fbDb,'users',currentUser.uid,'logs','main'));
+    if(snap.exists()){
+      const d = snap.data();
+      if(d.entries && Array.isArray(d.entries)){
+        logEntries = d.entries;
+        renderLog();
+      }
+    }
+  }catch(e){ console.warn('log load failed:', e); }
+}
+
 function persistSettings(){ persistLocal(); saveSettingsToCloud(); }
 
 function openAuthModal(){ if(!fbAuth) return; $('authError').textContent=''; $('authError').className='modal-error'; $('authModal').classList.add('open'); $('authEmail').focus(); }
