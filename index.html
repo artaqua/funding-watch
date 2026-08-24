@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FUNDING /// WATCH</title>
+<title>FUNDING // WATCH</title>
 <meta name="theme-color" content="#0a0d10">
 <link rel="icon" type="image/svg+xml" href="gemini-svg.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,15 +23,20 @@
     color:var(--text);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
     min-height:100vh;padding:28px 20px 60px;
   }
-  .wrap{max-width:1100px;margin:0 auto;}
+  .wrap{max-width:1200px;margin:0 auto;} 
+  
   header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px;flex-wrap:wrap;gap:12px;}
   .brand{display:flex;flex-direction:column;gap:6px;}
   .brand .mark{font-size:12px;letter-spacing:0.35em;color:var(--text-faint);font-weight:600;}
   .brand h1{margin:0;font-size:28px;letter-spacing:0.02em;font-weight:800;display:flex;align-items:center;gap:12px;}
   .brand h1 img{width:36px;height:36px;border-radius:8px;}
+  .brand h1 span {
+    color: var(--green);
+  }
   .clock{text-align:right;font-size:13px;color:var(--text-dim);line-height:1.6;}
   .clock b{color:var(--text);font-size:15px;font-variant-numeric:tabular-nums;}
-  .feedstrip{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  
+  .feedstrip{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
   .feedchip{display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:20px;background:var(--panel);border:1px solid var(--border);font-size:11.5px;color:var(--text-dim);}
   .feedchip .exdot{width:8px;height:8px;border-radius:2px;flex:none;}
   .feedchip .exdot.hyperliquid{background:var(--hyperliquid);}
@@ -44,22 +49,108 @@
   .feedchip.reconnecting .status{color:var(--red);}
   .feedchip.reconnecting .pulse{background:var(--red);}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.75);}}
+  
+  /* --- AUTH BAR STYLES --- */
+  .authbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    background: rgba(16, 21, 26, 0.6); /* Полупрозрачный фон */
+    border: 1px dashed var(--border); /* Пунктирная рамка для отличия от панелей */
+    font-size: 12px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .authbar.logged-in {
+    background: var(--panel);
+    border: 1px solid var(--border);
+  }
+  .authbar .who {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+  .authbar .who b { color: var(--text); }
+  
+  .syncbadge {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .syncbadge.on {
+    color: var(--blue);
+    border-color: #1d3a54;
+    background: var(--blue-dim);
+  }
+
+  .btn-auth {
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--panel-alt);
+    color: var(--text);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-auth:hover { border-color: var(--text-dim); color: #fff; }
+  
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;}
-  .controls{padding:16px 18px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;}
-  .field{display:flex;flex-direction:column;gap:6px;}
+  
+  /* --- GRID LAYOUT FOR CONTROLS --- */
+  .controls{
+    padding:16px 18px;
+    margin-bottom:14px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    gap:16px;
+    align-items:start;
+  }
+  
+  .field{display:flex;flex-direction:column;gap:6px;width:100%;}
   .field label{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;}
-  .field input{width: 100%;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:13px;padding:9px 11px;border-radius:7px;outline:none;transition:border-color .15s,box-shadow .15s;}
+  .field input{
+    width: 100%;
+    background:var(--panel-alt);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-family:inherit;
+    font-size:13px;
+    padding:10px 11px;
+    border-radius:7px;
+    outline:none;
+    transition:border-color .15s,box-shadow .15s;
+  }
   .field input:focus{border-color:var(--text-faint);}
   .field input.invalid{border-color:var(--red);box-shadow:0 0 0 2px var(--red-dim);}
   .field input.valid{border-color:var(--green);}
-  .field .hint{font-size:10.5px;color:var(--text-faint);letter-spacing:0.02em;line-height:1.4;margin-top:2px;max-width:320px;}
+  .field .hint{font-size:10.5px;color:var(--text-faint);letter-spacing:0.02em;line-height:1.4;margin-top:2px;min-height:1.4em;}
   .field .hint b{color:var(--text-dim);font-weight:600;}
   .field .hint.err{color:var(--red);}
   .field .hint.ok{color:var(--green);}
-  .field.coins{flex:1 1 300px;min-width:240px;}
-  .field.coins input{width:100%;}
-  .field.threshold{flex:0 0 auto;}
-  .btn{font-size:12.5px;font-weight:600;letter-spacing:0.03em;padding:10px 16px;border-radius:7px;cursor:pointer;border:1px solid var(--border);background:var(--panel-alt);color:var(--text);transition:border-color .15s,color .15s;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
+  
+  .btn{
+    font-size:12.5px;font-weight:600;letter-spacing:0.03em;
+    padding:10px 16px;border-radius:7px;cursor:pointer;
+    border:1px solid var(--border);background:var(--panel-alt);color:var(--text);
+    transition:border-color .15s,color .15s;
+    display:inline-flex;align-items:center;justify-content:center;
+    gap:7px;white-space:nowrap;
+    width: 100%;
+    height: 42px;
+  }
   .btn:hover{border-color:var(--text-dim);color:#fff;}
   .btn.primary{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
   .btn.primary:hover{border-color:var(--green);}
@@ -67,10 +158,9 @@
   .btn.danger{background:var(--red-dim);border-color:#5c1e1e;color:var(--red);}
   .btn.danger:hover{border-color:var(--red);}
   .btn:disabled{opacity:.5;cursor:default;}
-  .spacer{flex:1;}
-  .authbar{padding:12px 18px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-  .authbar .who{font-size:12.5px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
-  .authbar .who b{color:var(--text);}
+
+  .controls .btn{ margin-top: 18px; }
+  
   .modal-overlay{position:fixed;inset:0;background:rgba(5,7,9,0.72);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;}
@@ -87,12 +177,12 @@
   .modal-error.ok{color:var(--green);}
   .modal-forgot{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--text-dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:inherit;width:100%;}
   .modal-forgot:hover{color:var(--text);}
-  .syncbadge{font-size:10.5px;padding:4px 9px;border-radius:20px;border:1px solid var(--border);color:var(--text-faint);display:flex;align-items:center;gap:6px;}
-  .syncbadge.on{color:var(--blue);border-color:#1d3a54;}
+  
   .coin-panel{margin-bottom:16px;overflow:hidden;}
   .coin-head{padding:13px 18px;border-bottom:1px solid var(--border-soft);background:var(--panel-alt);display:flex;align-items:center;justify-content:space-between;}
   .coin-head .title{font-size:14px;font-weight:700;letter-spacing:0.02em;}
   .coin-head .title small{font-size:11px;color:var(--text-faint);font-weight:500;margin-left:8px;}
+  
   table{width:100%;border-collapse:collapse;font-size:12.5px;}
   thead th{text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;padding:9px 18px;border-bottom:1px solid var(--border-soft);}
   tbody td{padding:11px 18px;border-bottom:1px solid var(--border-soft);vertical-align:middle;}
@@ -125,6 +215,8 @@
     background:linear-gradient(90deg,rgba(245,197,66,0.14),rgba(245,197,66,0.05));
     box-shadow:inset 0 0 0 1px rgba(245,197,66,0.35);
   }
+  tr th:last-child, tr td:last-child { text-align: right; }
+  
   .log-panel{padding:14px 18px;margin-top:22px;}
   .log-title{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
   .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 8px;font-size:10px;}
@@ -155,76 +247,57 @@
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
 
+  /* --- RESPONSIVE --- */
+  @media (max-width:900px){
+    .controls { grid-template-columns: 1fr 1fr; }
+    .field.coins { grid-column: span 2; }
+  }
+
   @media (max-width:768px){
     body{padding:16px 12px 40px;}
     .brand h1{font-size:22px;}
     .brand h1 img{width:28px;height:28px;}
     .clock{font-size:11px;text-align:left;width:100%;}
     .clock b{font-size:13px;}
-    .controls{padding:12px;gap:12px;}
-    .field.coins input{min-width:0;}
-    .field.threshold input{width:140px;}
-    .btn{padding:9px 12px;font-size:11.5px;}
-    .authbar{padding:10px 12px;gap:8px;}
-    .authbar .who{font-size:11px;width:100%;order:3;}
-    .syncbadge{font-size:9.5px;padding:3px 7px;}
+    
     .coin-head{padding:11px 12px;}
     .coin-head .title{font-size:13px;}
     thead th{padding:8px 12px;font-size:9px;}
     tbody td{padding:9px 12px;}
     .log-panel{padding:12px;margin-top:16px;}
     .log-list{max-height:200px;}
-    .btn{margin-top: 10px;}
+    
+    .authbar { flex-direction: column; align-items: stretch; gap: 10px; }
+    .authbar .who { order: 1; }
+    .authbar .actions { order: 2; display: flex; gap: 10px; align-items: center; }
   }
 
-  @media (max-width:640px){
-    .controls{flex-direction:column;align-items:stretch;}
-    .field.coins,.field.threshold{width:100%;flex:1 1 auto;}
-    .field.threshold input{width:100%;}
-    .btn{width:100%;justify-content:center;}
-    .authbar{flex-direction:column;align-items:stretch;gap:8px;}
-    .authbar .who{order:1;}
-    .authbar .spacer{display:none;}
-    .authbar .syncbadge{order:2;align-self:flex-start;}
-    .authbar #signInBtn,.authbar #signOutBtn{order:3;width:100%;justify-content:center;}
-    .btn{margin-top: 0;}
-  }
-
-  @media (max-width:480px){
+  @media (max-width:500px){
     body{padding:12px 8px 30px;}
     .brand .mark{font-size:10px;letter-spacing:0.25em;}
     .brand h1{font-size:18px;gap:8px;}
     .brand h1 img{width:24px;height:24px;}
     .feedchip{padding:6px 10px;font-size:10.5px;}
     
+    .controls { grid-template-columns: 1fr; gap: 12px; }
+    .field.coins { grid-column: auto; }
+    
     .coin-panel table{display:block;}
     .coin-panel thead{display:none;}
     .coin-panel tbody{display:block;}
     .coin-panel tbody tr{
-      display:block;
-      padding:12px;
-      margin-bottom:8px;
-      border:1px solid var(--border-soft);
-      border-radius:8px;
-      background:var(--panel-alt);
+      display:block; padding:12px; margin-bottom:8px;
+      border:1px solid var(--border-soft); border-radius:8px; background:var(--panel-alt);
     }
     .coin-panel tbody tr:last-child{margin-bottom:0;}
     .coin-panel tbody td{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:6px 0;
-      border-bottom:1px solid var(--border-soft);
+      display:flex; justify-content:space-between; align-items:center;
+      padding:6px 0; border-bottom:1px solid var(--border-soft);
     }
     .coin-panel tbody td:last-child{border-bottom:none;}
     .coin-panel tbody td::before{
-      content:attr(data-label);
-      font-size:10px;
-      letter-spacing:0.1em;
-      text-transform:uppercase;
-      color:var(--text-faint);
-      font-weight:600;
-      margin-right:12px;
+      content:attr(data-label); font-size:10px; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--text-faint); font-weight:600; margin-right:12px;
     }
     .coin-cell{font-size:15px;font-weight:800;}
     .rate{font-size:14px;}
@@ -232,6 +305,10 @@
     
     .log-title{flex-wrap:wrap;gap:6px;}
     .log-title #clearLogBtn{width:100%;margin-top:4px;}
+    .controls .btn { margin-top: 10px; }
+    
+    .authbar .actions { flex-direction: column; }
+    .btn-auth { width: 100%; }
   }
 
   @media (max-width:360px){
@@ -249,20 +326,27 @@
   <header>
     <div class="brand">
       <div class="mark">HYPERLIQUID MONITOR · REST POLLING</div>
-      <h1><img src="gemini-svg.svg" alt=""> FUNDING / WATCH</h1>
+      <h1><img src="gemini-svg.svg" alt=""> FUNDING <span>//</span> WATCH</h1>
     </div>
     <div class="clock">UTC <b id="clockUtc">--:--:--</b><br>последнее событие: <b id="lastUpdate">—</b></div>
   </header>
+  
   <div class="feedstrip" id="feedStrip">
     <div class="feedchip connecting" id="chip-hyperliquid"><span class="exdot hyperliquid"></span>Hyperliquid<span class="status"><span class="pulse"></span><span id="chiptxt-hyperliquid">connecting</span></span></div>
   </div>
-  <div class="panel authbar">
-    <div class="who" id="authWho"><span> не выполнен вход — настройки хранятся только в этом браузере</span></div>
-    <div class="spacer"></div>
-    <span class="syncbadge" id="syncBadge">☁ облако выкл</span>
-    <button class="btn" id="signInBtn">Войти по почте</button>
-    <button class="btn" id="signOutBtn" style="display:none;">Выйти</button>
+
+  <!-- COMPACT AUTH BAR -->
+  <div class="authbar" id="authBar">
+    <div class="who" id="authWho">
+      <span>️ не выполнен вход — настройки хранятся только в этом браузере</span>
+    </div>
+    <div class="actions">
+        <span class="syncbadge" id="syncBadge">☁ облако выкл</span>
+        <button class="btn-auth" id="signInBtn">Войти по почте</button>
+        <button class="btn-auth" id="signOutBtn" style="display:none;">Выйти</button>
+    </div>
   </div>
+
   <div class="modal-overlay" id="authModal">
     <div class="modal-box">
       <button class="modal-close" id="authModalClose" aria-label="Закрыть">✕</button>
@@ -277,25 +361,28 @@
       <button class="modal-forgot" id="authForgotBtn">Забыли пароль?</button>
     </div>
   </div>
+  
   <div class="panel controls">
     <div class="field coins">
+      <label>Монеты</label>
       <input id="coinsInput" type="text" value="BTC,ETH,SOL,HYPE" spellcheck="false" placeholder="BTC, ETH, SOL">
       <div class="hint">Список тикеров через запятую. Пример: <b>BTC, ETH, SOL, HYPE</b></div>
     </div>
     <div class="field threshold">
+      <label>Порог алерта, п.п.</label>
       <input id="thresholdInput" type="text" value="0.05" placeholder="0.05" inputmode="decimal" autocomplete="off">
       <div class="hint" id="thresholdHint">Допустимо: <b>0.000001 – 100</b> · только цифры и точка</div>
     </div>
     <button class="btn primary" id="applyBtn">✓ Применить</button>
-    <div class="spacer"></div>
-    <button class="btn" id="notifyBtn"> Включить уведомления</button>
+    <button class="btn" id="notifyBtn">🔔 Уведомления</button>
   </div>
+  
   <div id="coinsContainer"></div>
   <div class="panel log-panel">
-    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span><div class="spacer"></div><button class="btn danger" id="clearLogBtn" style="padding:6px 12px;font-size:11px;">Очистить журнал</button></div>
+    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span><div class="spacer"></div><button class="btn danger" id="clearLogBtn" style="padding:6px 12px;font-size:11px;width:auto;">Очистить журнал</button></div>
     <div class="log-list" id="logList"><div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div></div>
   </div>
-  <footer>Hyperliquid REST API — polling каждые 5 секунд, без бэкенда · настройки опционально синхронизируются через ваш собственный Firebase проект</footer>
+  <footer>Hyperliquid REST API — polling каждые 5 секунд, без бэкенда</footer>
 </div>
 
 <script type="module">
@@ -410,7 +497,7 @@ function handleUpdate(coin, rate, mark){
     const isWild = signFlip && bothSubstantial;
 
     if(isWild){
-      deltaEl.textContent = '⚡ дикая смена';
+      deltaEl.textContent = ' дикая смена';
       deltaEl.className = 'delta wild';
       rowEl.classList.remove('flash-up','flash-down','alert-row');
       rowEl.classList.add('wild-row');
@@ -512,7 +599,7 @@ function updateThresholdHint(){
     inputEl.classList.remove('valid');
     inputEl.classList.add('invalid');
     hintEl.className = 'hint err';
-    hintEl.textContent = `✗ ${res.error}`;
+    hintEl.textContent = ` ${res.error}`;
   }
 }
 
@@ -563,7 +650,7 @@ $('notifyBtn').addEventListener('click', async ()=>{
   const perm = await Notification.requestPermission();
   notifGranted = perm === 'granted';
   if(notifGranted){ $('notifyBtn').innerHTML = '✅ Уведомления включены'; $('notifyBtn').classList.add('on'); new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'}); }
-  else { $('notifyBtn').textContent = '🔕 Уведомления заблокированы'; }
+  else { $('notifyBtn').textContent = ' Уведомления заблокированы'; }
 });
 if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
@@ -588,9 +675,27 @@ async function initFirebase(cfg){
 }
 
 function renderAuthUI(){
-  const who = $('authWho'), signIn = $('signInBtn'), signOutB = $('signOutBtn'), badge = $('syncBadge');
-  if(currentUser){ who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`; signIn.style.display='none'; signOutB.style.display='inline-flex'; badge.textContent = ' синхронизировано'; badge.classList.add('on'); }
-  else { who.innerHTML = `<span>🔒 не выполнен вход — настройки хранятся только в этом браузере</span>`; signIn.style.display='inline-flex'; signOutB.style.display='none'; badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл'; badge.classList.remove('on'); }
+  const authBar = $('authBar');
+  const who = $('authWho');
+  const signIn = $('signInBtn');
+  const signOutB = $('signOutBtn');
+  const badge = $('syncBadge');
+  
+  if(currentUser){
+    authBar.classList.add('logged-in');
+    who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`;
+    signIn.style.display='none';
+    signOutB.style.display='inline-block';
+    badge.textContent = '☁ синхронизировано';
+    badge.classList.add('on');
+  } else {
+    authBar.classList.remove('logged-in');
+    who.innerHTML = `<span>⚠️ не выполнен вход — настройки хранятся только в этом браузере</span>`;
+    signIn.style.display='inline-block';
+    signOutB.style.display='none';
+    badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл';
+    badge.classList.remove('on');
+  }
 }
 
 async function saveSettingsToCloud(){ if(!currentUser || !fbDb) return; try{ await setDoc(doc(fbDb,'users',currentUser.uid,'settings','main'), { coins: $('coinsInput').value, threshold: thresholdPct, updatedAt: Date.now() }); }catch(e){ console.warn('settings save failed:', e); } }
