@@ -388,7 +388,7 @@
       <div class="hint" id="thresholdHint">Допустимо: <b>0.000001 – 100</b> · только цифры и точка</div>
     </div>
     <button class="btn primary" id="applyBtn">✓ Применить</button>
-    <button class="btn" id="notifyBtn"> Уведомления</button>
+    <button class="btn" id="notifyBtn">🔔 Уведомления</button>
   </div>
 
   <footer>
@@ -469,7 +469,7 @@ function fireAlert(coin, prevRate, newRate, diffPP, isWild){
 
   let msgHtml, msgPlain;
   if(isWild){
-    msgHtml = `Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>) <span class="wild-tag">⚡ дикая смена</span>`;
+    msgHtml = `Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>) <span class="wild-tag"> дикая смена</span>`;
     msgPlain = `Hyperliquid ${coin}: ${prevText} → ${newText} (${diffText}) · ДИКАЯ СМЕНА ФАНДОСА`;
   } else {
     msgHtml = `Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>)`;
@@ -481,7 +481,7 @@ function fireAlert(coin, prevRate, newRate, diffPP, isWild){
   renderLog();
   saveLogToCloud();
   if(notifGranted){
-    try{ new Notification((isWild?' Дикая смена':'Funding сдвиг')+': '+coin, {body: msgPlain, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
+    try{ new Notification((isWild?'⚡ Дикая смена':'Funding сдвиг')+': '+coin, {body: msgPlain, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
   }
 }
 
@@ -489,8 +489,9 @@ function renderLog(){
   $('logCount').textContent = logEntries.length;
   const listEl = $('logList');
   if(logEntries.length===0){ listEl.innerHTML = '<div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>'; return; }
-  listEl.innerHTML = logEntries.map(e => `<div class="log-item${e.wild?' wild-log':''}"><span class="t">${e.t}</span><span class="content">${e.html}</span></div>`).join('');
-  listEl.scrollTop = listEl.scrollHeight;
+  // Новые записи — сверху (обратный порядок)
+  listEl.innerHTML = [...logEntries].reverse().map(e => `<div class="log-item${e.wild?' wild-log':''}"><span class="t">${e.t}</span><span class="content">${e.html}</span></div>`).join('');
+  listEl.scrollTop = 0;
 }
 
 function handleUpdate(coin, rate, mark){
@@ -510,7 +511,7 @@ function handleUpdate(coin, rate, mark){
     const isWild = signFlip && bothSubstantial;
 
     if(isWild){
-      deltaEl.textContent = ' дикая смена';
+      deltaEl.textContent = '⚡ дикая смена';
       deltaEl.className = 'delta wild';
       rowEl.classList.remove('flash-up','flash-down','alert-row');
       rowEl.classList.add('wild-row');
@@ -699,7 +700,7 @@ function renderAuthUI(){
     badge.textContent = '☁ SYNC';
     badge.classList.add('on');
   } else {
-    authNote.textContent = '⚠️ не выполнен вход — настройки хранятся только в этом браузере';
+    authNote.textContent = '️ не выполнен вход — настройки хранятся только в этом браузере';
     signIn.style.display='inline-block';
     signOutB.style.display='none';
     badge.textContent = 'SYNC выкл';
