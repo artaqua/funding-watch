@@ -25,7 +25,6 @@
   }
   .wrap{max-width:1200px;margin:0 auto;}
 
-  /* HEADER */
   header{
     display:flex;
     justify-content:space-between;
@@ -97,27 +96,8 @@
   }
   .btn-auth:hover{border-color:var(--text-dim);color:#fff;}
 
-  /* AUTH BAR */
-  .authbar{
-    display:flex;
-    align-items:center;
-    padding:8px 14px;
-    margin-bottom:12px;
-    border-radius:8px;
-    background:rgba(16,21,26,0.6);
-    border:1px dashed var(--border);
-    font-size:11.5px;
-    color:var(--text-dim);
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  .authbar.logged-in{background:var(--panel);border:1px solid var(--border);}
-  .authbar .who{display:flex;align-items:center;gap:7px;flex:1;}
-  .authbar .who b{color:var(--text);}
-
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;}
 
-  /* CONTROLS */
   .controls{
     padding:14px 16px;
     margin-bottom:12px;
@@ -169,7 +149,6 @@
 
   .controls .btn{margin-top:17px;}
 
-  /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(5,7,9,0.72);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;}
@@ -187,7 +166,6 @@
   .modal-forgot{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--text-dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:inherit;width:100%;}
   .modal-forgot:hover{color:var(--text);}
 
-  /* COIN PANEL */
   .coin-panel{margin-bottom:14px;overflow:hidden;}
   .coin-head{padding:12px 16px;border-bottom:1px solid var(--border-soft);background:var(--panel-alt);display:flex;align-items:center;justify-content:space-between;}
   .coin-head .title{font-size:13px;font-weight:700;letter-spacing:0.02em;}
@@ -227,7 +205,6 @@
   }
   tr th:last-child, tr td:last-child{text-align:right;}
 
-  /* LOG PANEL */
   .log-panel{padding:12px 16px;margin-bottom:14px;}
   .log-title{font-size:10px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
   .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 7px;font-size:9.5px;}
@@ -290,7 +267,6 @@
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
 
-  /* RESPONSIVE */
   @media (max-width:900px){
     .controls{grid-template-columns:1fr 1fr;}
     .field.coins{grid-column:span 2;}
@@ -312,8 +288,6 @@
     tbody td{padding:8px 10px;}
     .log-panel{padding:10px;margin-bottom:10px;}
     .log-list{max-height:260px;}
-
-    .authbar{flex-direction:column;align-items:stretch;gap:8px;}
   }
 
   @media (max-width:500px){
@@ -414,7 +388,7 @@
       <div class="hint" id="thresholdHint">Допустимо: <b>0.000001 – 100</b> · только цифры и точка</div>
     </div>
     <button class="btn primary" id="applyBtn">✓ Применить</button>
-    <button class="btn" id="notifyBtn">🔔 Уведомления</button>
+    <button class="btn" id="notifyBtn"> Уведомления</button>
   </div>
 
   <footer>
@@ -507,7 +481,7 @@ function fireAlert(coin, prevRate, newRate, diffPP, isWild){
   renderLog();
   saveLogToCloud();
   if(notifGranted){
-    try{ new Notification((isWild?'⚡ Дикая смена':'Funding сдвиг')+': '+coin, {body: msgPlain, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
+    try{ new Notification((isWild?' Дикая смена':'Funding сдвиг')+': '+coin, {body: msgPlain, tag: 'hyperliquid'+coin+Date.now()}); }catch(e){}
   }
 }
 
@@ -536,7 +510,7 @@ function handleUpdate(coin, rate, mark){
     const isWild = signFlip && bothSubstantial;
 
     if(isWild){
-      deltaEl.textContent = '⚡ дикая смена';
+      deltaEl.textContent = ' дикая смена';
       deltaEl.className = 'delta wild';
       rowEl.classList.remove('flash-up','flash-down','alert-row');
       rowEl.classList.add('wild-row');
@@ -688,7 +662,7 @@ $('notifyBtn').addEventListener('click', async ()=>{
   const perm = await Notification.requestPermission();
   notifGranted = perm === 'granted';
   if(notifGranted){ $('notifyBtn').innerHTML = '✅ Уведомления включены'; $('notifyBtn').classList.add('on'); new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'}); }
-  else { $('notifyBtn').textContent = ' Уведомления'; }
+  else { $('notifyBtn').textContent = '🔔 Уведомления'; }
 });
 if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
@@ -713,21 +687,18 @@ async function initFirebase(cfg){
 }
 
 function renderAuthUI(){
-  const who = $('authWho');
   const signIn = $('signInBtn');
   const signOutB = $('signOutBtn');
   const badge = $('syncBadge');
   const authNote = $('authNote');
 
   if(currentUser){
-    who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`;
-    authNote.textContent = '';
+    authNote.textContent = '👤 ' + (currentUser.email || currentUser.uid) + ' · ☁ синхронизировано';
     signIn.style.display='none';
     signOutB.style.display='inline-block';
-    badge.textContent = ' SYNC';
+    badge.textContent = '☁ SYNC';
     badge.classList.add('on');
   } else {
-    who.innerHTML = `<span>⚠️ не выполнен вход — настройки хранятся только в этом браузере</span>`;
     authNote.textContent = '⚠️ не выполнен вход — настройки хранятся только в этом браузере';
     signIn.style.display='inline-block';
     signOutB.style.display='none';
