@@ -21,26 +21,37 @@
   body{
     background:radial-gradient(ellipse 900px 500px at 15% -10%,rgba(47,215,124,0.05),transparent 60%),radial-gradient(ellipse 800px 500px at 105% 10%,rgba(138,245,207,0.03),transparent 60%),var(--bg);
     color:var(--text);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
-    min-height:100vh;padding:28px 20px 60px;
+    min-height:100vh;padding:24px 20px 50px;
   }
-  .wrap{max-width:1200px;margin:0 auto;} 
-  
-  header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px;flex-wrap:wrap;gap:12px;}
-  .brand{display:flex;flex-direction:column;gap:6px;}
-  .brand .mark{font-size:12px;letter-spacing:0.35em;color:var(--text-faint);font-weight:600;}
-  .brand h1{margin:0;font-size:28px;letter-spacing:0.02em;font-weight:800;display:flex;align-items:center;gap:12px;}
-  .brand h1 img{width:36px;height:36px;border-radius:8px;}
-  .brand h1 span {
-    color: var(--green);
+  .wrap{max-width:1200px;margin:0 auto;}
+
+  /* HEADER */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--border);
+    padding-bottom:12px;
+    margin-bottom:12px;
+    gap:16px;
+    flex-wrap:wrap;
   }
-  .clock{text-align:right;font-size:13px;color:var(--text-dim);line-height:1.6;}
-  .clock b{color:var(--text);font-size:15px;font-variant-numeric:tabular-nums;}
-  
-  .feedstrip{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
-  .feedchip{display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:20px;background:var(--panel);border:1px solid var(--border);font-size:11.5px;color:var(--text-dim);}
-  .feedchip .exdot{width:8px;height:8px;border-radius:2px;flex:none;}
+  .brand{display:flex;flex-direction:column;gap:3px;}
+  .brand .mark{font-size:10.5px;letter-spacing:0.3em;color:var(--text-faint);font-weight:600;}
+  .brand h1{margin:0;font-size:26px;letter-spacing:0.02em;font-weight:800;display:flex;align-items:center;gap:10px;}
+  .brand h1 img{width:30px;height:30px;border-radius:7px;}
+  .brand h1 span{color:var(--green);}
+
+  .header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .feedchip{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:18px;background:var(--panel);border:1px solid var(--border);font-size:10.5px;color:var(--text-dim);}
+  .feedchip .exdot{width:7px;height:7px;border-radius:2px;flex:none;}
   .feedchip .exdot.hyperliquid{background:var(--hyperliquid);}
-  .feedchip .status{display:flex;align-items:center;gap:5px;font-weight:600;}
+  .feedchip .status{display:flex;align-items:center;gap:4px;font-weight:600;}
   .feedchip .status .pulse{width:6px;height:6px;border-radius:50%;background:var(--text-faint);}
   .feedchip.live .status{color:var(--green);}
   .feedchip.live .pulse{background:var(--green);box-shadow:0 0 0 3px var(--green-dim);animation:pulse 1.6s ease-in-out infinite;}
@@ -49,86 +60,83 @@
   .feedchip.reconnecting .status{color:var(--red);}
   .feedchip.reconnecting .pulse{background:var(--red);}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.75);}}
-  
-  /* --- AUTH BAR STYLES --- */
-  .authbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    background: rgba(16, 21, 26, 0.6); /* Полупрозрачный фон */
-    border: 1px dashed var(--border); /* Пунктирная рамка для отличия от панелей */
-    font-size: 12px;
-    color: var(--text-dim);
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .authbar.logged-in {
-    background: var(--panel);
-    border: 1px solid var(--border);
-  }
-  .authbar .who {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-  }
-  .authbar .who b { color: var(--text); }
-  
-  .syncbadge {
-    font-size: 10.5px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    color: var(--text-faint);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-  }
-  .syncbadge.on {
-    color: var(--blue);
-    border-color: #1d3a54;
-    background: var(--blue-dim);
-  }
 
-  .btn-auth {
-    font-size: 11px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    background: var(--panel-alt);
-    color: var(--text);
-    transition: all 0.2s;
-    white-space: nowrap;
+  .last-update{
+    font-size:12px;
+    color:var(--text-dim);
+    line-height:1.5;
   }
-  .btn-auth:hover { border-color: var(--text-dim); color: #fff; }
-  
+  .last-update b{color:var(--text);font-size:14px;font-variant-numeric:tabular-nums;}
+
+  .syncbadge{
+    font-size:10px;
+    padding:4px 9px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    color:var(--text-faint);
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
+    font-weight:600;
+    letter-spacing:0.06em;
+  }
+  .syncbadge.on{color:var(--blue);border-color:#1d3a54;background:var(--blue-dim);}
+
+  .btn-auth{
+    font-size:11px;
+    padding:5px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    border:1px solid var(--border);
+    background:var(--panel-alt);
+    color:var(--text);
+    transition:all 0.2s;
+    white-space:nowrap;
+    font-weight:600;
+  }
+  .btn-auth:hover{border-color:var(--text-dim);color:#fff;}
+
+  /* AUTH BAR */
+  .authbar{
+    display:flex;
+    align-items:center;
+    padding:8px 14px;
+    margin-bottom:12px;
+    border-radius:8px;
+    background:rgba(16,21,26,0.6);
+    border:1px dashed var(--border);
+    font-size:11.5px;
+    color:var(--text-dim);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .authbar.logged-in{background:var(--panel);border:1px solid var(--border);}
+  .authbar .who{display:flex;align-items:center;gap:7px;flex:1;}
+  .authbar .who b{color:var(--text);}
+
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;}
-  
-  /* --- GRID LAYOUT FOR CONTROLS --- */
+
+  /* CONTROLS */
   .controls{
-    padding:16px 18px;
-    margin-bottom:14px;
+    padding:14px 16px;
+    margin-bottom:12px;
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    gap:16px;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap:14px;
     align-items:start;
   }
-  
-  .field{display:flex;flex-direction:column;gap:6px;width:100%;}
-  .field label{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;}
+
+  .field{display:flex;flex-direction:column;gap:5px;width:100%;}
+  .field label{font-size:10px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;}
   .field input{
-    width: 100%;
+    width:100%;
     background:var(--panel-alt);
     border:1px solid var(--border);
     color:var(--text);
     font-family:inherit;
     font-size:13px;
-    padding:10px 11px;
+    padding:9px 10px;
     border-radius:7px;
     outline:none;
     transition:border-color .15s,box-shadow .15s;
@@ -136,20 +144,20 @@
   .field input:focus{border-color:var(--text-faint);}
   .field input.invalid{border-color:var(--red);box-shadow:0 0 0 2px var(--red-dim);}
   .field input.valid{border-color:var(--green);}
-  .field .hint{font-size:10.5px;color:var(--text-faint);letter-spacing:0.02em;line-height:1.4;margin-top:2px;min-height:1.4em;}
+  .field .hint{font-size:10px;color:var(--text-faint);letter-spacing:0.02em;line-height:1.4;margin-top:2px;min-height:1.4em;}
   .field .hint b{color:var(--text-dim);font-weight:600;}
   .field .hint.err{color:var(--red);}
   .field .hint.ok{color:var(--green);}
-  
+
   .btn{
-    font-size:12.5px;font-weight:600;letter-spacing:0.03em;
-    padding:10px 16px;border-radius:7px;cursor:pointer;
+    font-size:12px;font-weight:600;letter-spacing:0.03em;
+    padding:9px 14px;border-radius:7px;cursor:pointer;
     border:1px solid var(--border);background:var(--panel-alt);color:var(--text);
     transition:border-color .15s,color .15s;
     display:inline-flex;align-items:center;justify-content:center;
     gap:7px;white-space:nowrap;
-    width: 100%;
-    height: 42px;
+    width:100%;
+    height:40px;
   }
   .btn:hover{border-color:var(--text-dim);color:#fff;}
   .btn.primary{background:var(--green-dim);border-color:#1e5c3d;color:var(--green);}
@@ -159,8 +167,9 @@
   .btn.danger:hover{border-color:var(--red);}
   .btn:disabled{opacity:.5;cursor:default;}
 
-  .controls .btn{ margin-top: 18px; }
-  
+  .controls .btn{margin-top:17px;}
+
+  /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(5,7,9,0.72);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;}
@@ -177,27 +186,28 @@
   .modal-error.ok{color:var(--green);}
   .modal-forgot{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--text-dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:inherit;width:100%;}
   .modal-forgot:hover{color:var(--text);}
-  
-  .coin-panel{margin-bottom:16px;overflow:hidden;}
-  .coin-head{padding:13px 18px;border-bottom:1px solid var(--border-soft);background:var(--panel-alt);display:flex;align-items:center;justify-content:space-between;}
-  .coin-head .title{font-size:14px;font-weight:700;letter-spacing:0.02em;}
-  .coin-head .title small{font-size:11px;color:var(--text-faint);font-weight:500;margin-left:8px;}
-  
-  table{width:100%;border-collapse:collapse;font-size:12.5px;}
-  thead th{text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;padding:9px 18px;border-bottom:1px solid var(--border-soft);}
-  tbody td{padding:11px 18px;border-bottom:1px solid var(--border-soft);vertical-align:middle;}
+
+  /* COIN PANEL */
+  .coin-panel{margin-bottom:14px;overflow:hidden;}
+  .coin-head{padding:12px 16px;border-bottom:1px solid var(--border-soft);background:var(--panel-alt);display:flex;align-items:center;justify-content:space-between;}
+  .coin-head .title{font-size:13px;font-weight:700;letter-spacing:0.02em;}
+  .coin-head .title small{font-size:10.5px;color:var(--text-faint);font-weight:500;margin-left:8px;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead th{text-align:left;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;padding:8px 16px;border-bottom:1px solid var(--border-soft);}
+  tbody td{padding:10px 16px;border-bottom:1px solid var(--border-soft);vertical-align:middle;}
   tbody tr:last-child td{border-bottom:none;}
   tbody tr{transition:background-color .4s ease;}
-  .coin-cell{font-weight:700;font-size:13px;}
+  .coin-cell{font-weight:700;font-size:12.5px;}
   .rate{font-variant-numeric:tabular-nums;font-weight:700;}
   .rate.pos{color:var(--green);}
   .rate.neg{color:var(--red);}
   .muted{color:var(--text-dim);font-variant-numeric:tabular-nums;}
-  .delta{font-variant-numeric:tabular-nums;font-size:11.5px;}
+  .delta{font-variant-numeric:tabular-nums;font-size:11px;}
   .delta.up{color:var(--green);}
   .delta.down{color:var(--red);}
   .delta.stable{color:var(--text-faint);}
-  .delta.wild{color:var(--gold);font-weight:800;text-shadow:0 0 8px rgba(245,197,66,0.45);letter-spacing:0.02em;}
+  .delta.wild{color:var(--gold);font-weight:800;text-shadow:0 0 8px rgba(245,197,66,0.45);letter-spacing:0.02em;text-align:left;}
   .na{color:var(--text-faint);}
   .missing{color:var(--amber);}
   tr.flash-up{animation:flashUp 1.4s ease;}
@@ -215,16 +225,39 @@
     background:linear-gradient(90deg,rgba(245,197,66,0.14),rgba(245,197,66,0.05));
     box-shadow:inset 0 0 0 1px rgba(245,197,66,0.35);
   }
-  tr th:last-child, tr td:last-child { text-align: right; }
-  
-  .log-panel{padding:14px 18px;margin-top:22px;}
-  .log-title{font-size:10.5px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-  .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 8px;font-size:10px;}
+  tr th:last-child, tr td:last-child{text-align:right;}
+
+  /* LOG PANEL */
+  .log-panel{padding:12px 16px;margin-bottom:14px;}
+  .log-title{font-size:10px;letter-spacing:0.12em;color:var(--text-faint);font-weight:600;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .log-title .n{background:var(--panel-alt);border:1px solid var(--border);color:var(--text-dim);border-radius:20px;padding:1px 7px;font-size:9.5px;}
   .log-title .spacer{flex:1;}
-  .log-list{display:flex;flex-direction:column-reverse;gap:0;max-height:260px;overflow-y:auto;}
-  .log-item{font-size:12px;padding:8px 0;border-bottom:1px solid var(--border-soft);display:flex;gap:10px;color:var(--text-dim);}
+  .log-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    max-height:200px;
+    overflow-y:auto;
+    scroll-behavior:smooth;
+    padding-right:4px;
+  }
+  .log-list::-webkit-scrollbar{width:6px;}
+  .log-list::-webkit-scrollbar-track{background:var(--panel-alt);border-radius:3px;}
+  .log-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;transition:background 0.2s;}
+  .log-list::-webkit-scrollbar-thumb:hover{background:var(--text-faint);}
+  .log-item{
+    font-size:11.5px;
+    padding:8px 10px;
+    border-bottom:1px solid var(--border-soft);
+    display:flex;
+    gap:10px;
+    color:var(--text-dim);
+    align-items:flex-start;
+    line-height:1.5;
+  }
   .log-item:last-child{border-bottom:none;}
-  .log-item .t{color:var(--text-faint);flex:none;font-variant-numeric:tabular-nums;}
+  .log-item .t{color:var(--text-faint);flex:none;font-variant-numeric:tabular-nums;font-size:10.5px;min-width:68px;}
+  .log-item .content{flex:1;display:inline;line-height:1.5;}
   .log-item b{color:#ffffff;font-weight:700;}
   .log-item .v-pos{color:var(--green);font-weight:600;}
   .log-item .v-neg{color:var(--red);font-weight:600;}
@@ -232,92 +265,102 @@
   .log-item.wild-log{
     background:linear-gradient(90deg,rgba(245,197,66,0.10),transparent 70%);
     border-left:2px solid var(--gold);
-    padding:9px 10px 9px 12px;margin:2px -10px;border-radius:4px;
+    padding:9px 10px 9px 12px;
+    margin:2px 0;
+    border-radius:4px;
   }
   .log-item.wild-log .wild-tag{
-    display:inline-block;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--gold);font-weight:800;
-    background:var(--gold-dim);border:1px solid var(--gold-border);
-    padding:1px 6px;border-radius:10px;margin-right:6px;
+    display:inline-block;
+    font-size:9px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:800;
+    background:var(--gold-dim);
+    border:1px solid var(--gold-border);
+    padding:2px 7px;
+    border-radius:10px;
+    margin-left:6px;
     vertical-align:middle;
   }
-  .log-empty{color:var(--text-faint);font-size:12px;padding:6px 0;}
-  footer{margin-top:28px;text-align:center;font-size:11px;color:var(--text-faint);letter-spacing:0.04em;}
+  .log-empty{color:var(--text-faint);font-size:11.5px;padding:6px 0;}
+  footer{margin-top:22px;text-align:center;font-size:10.5px;color:var(--text-faint);letter-spacing:0.04em;line-height:1.7;}
+  footer .auth-note{display:block;margin-top:5px;font-size:10px;color:var(--text-faint);}
   a{color:inherit;}
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
 
-  /* --- RESPONSIVE --- */
+  /* RESPONSIVE */
   @media (max-width:900px){
-    .controls { grid-template-columns: 1fr 1fr; }
-    .field.coins { grid-column: span 2; }
+    .controls{grid-template-columns:1fr 1fr;}
+    .field.coins{grid-column:span 2;}
   }
 
   @media (max-width:768px){
-    body{padding:16px 12px 40px;}
-    .brand h1{font-size:22px;}
-    .brand h1 img{width:28px;height:28px;}
-    .clock{font-size:11px;text-align:left;width:100%;}
-    .clock b{font-size:13px;}
-    
-    .coin-head{padding:11px 12px;}
-    .coin-head .title{font-size:13px;}
-    thead th{padding:8px 12px;font-size:9px;}
-    tbody td{padding:9px 12px;}
-    .log-panel{padding:12px;margin-top:16px;}
-    .log-list{max-height:200px;}
-    
-    .authbar { flex-direction: column; align-items: stretch; gap: 10px; }
-    .authbar .who { order: 1; }
-    .authbar .actions { order: 2; display: flex; gap: 10px; align-items: center; }
+    body{padding:14px 12px 40px;}
+    .brand h1{font-size:20px;}
+    .brand h1 img{width:26px;height:26px;}
+
+    header{flex-direction:column;align-items:flex-start;gap:10px;}
+    .header-right{width:100%;justify-content:space-between;flex-wrap:wrap;}
+    .last-update{font-size:11px;}
+    .last-update b{font-size:13px;}
+
+    .coin-head{padding:10px 12px;}
+    .coin-head .title{font-size:12px;}
+    thead th{padding:7px 10px;font-size:8.5px;}
+    tbody td{padding:8px 10px;}
+    .log-panel{padding:10px;margin-bottom:10px;}
+    .log-list{max-height:260px;}
+
+    .authbar{flex-direction:column;align-items:stretch;gap:8px;}
   }
 
   @media (max-width:500px){
-    body{padding:12px 8px 30px;}
-    .brand .mark{font-size:10px;letter-spacing:0.25em;}
-    .brand h1{font-size:18px;gap:8px;}
-    .brand h1 img{width:24px;height:24px;}
-    .feedchip{padding:6px 10px;font-size:10.5px;}
-    
-    .controls { grid-template-columns: 1fr; gap: 12px; }
-    .field.coins { grid-column: auto; }
-    
+    body{padding:10px 8px 30px;}
+    .brand .mark{font-size:9px;letter-spacing:0.2em;}
+    .brand h1{font-size:17px;gap:7px;}
+    .brand h1 img{width:22px;height:22px;}
+    .feedchip{padding:4px 8px;font-size:9.5px;}
+
+    .controls{grid-template-columns:1fr;gap:10px;}
+    .field.coins{grid-column:auto;}
+
     .coin-panel table{display:block;}
     .coin-panel thead{display:none;}
     .coin-panel tbody{display:block;}
     .coin-panel tbody tr{
-      display:block; padding:12px; margin-bottom:8px;
-      border:1px solid var(--border-soft); border-radius:8px; background:var(--panel-alt);
+      display:block;padding:10px;margin-bottom:7px;
+      border:1px solid var(--border-soft);border-radius:8px;background:var(--panel-alt);
     }
     .coin-panel tbody tr:last-child{margin-bottom:0;}
     .coin-panel tbody td{
-      display:flex; justify-content:space-between; align-items:center;
-      padding:6px 0; border-bottom:1px solid var(--border-soft);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:5px 0;border-bottom:1px solid var(--border-soft);
     }
     .coin-panel tbody td:last-child{border-bottom:none;}
     .coin-panel tbody td::before{
-      content:attr(data-label); font-size:10px; letter-spacing:0.1em;
-      text-transform:uppercase; color:var(--text-faint); font-weight:600; margin-right:12px;
+      content:attr(data-label);font-size:9.5px;letter-spacing:0.1em;
+      text-transform:uppercase;color:var(--text-faint);font-weight:600;margin-right:10px;
     }
-    .coin-cell{font-size:15px;font-weight:800;}
-    .rate{font-size:14px;}
-    .delta{font-size:12px;}
-    
-    .log-title{flex-wrap:wrap;gap:6px;}
+    .coin-cell{font-size:14px;font-weight:800;}
+    .rate{font-size:13px;}
+    .delta{font-size:11.5px;}
+
+    .log-title{flex-wrap:wrap;gap:5px;}
     .log-title #clearLogBtn{width:100%;margin-top:4px;}
-    .controls .btn { margin-top: 10px; }
-    
-    .authbar .actions { flex-direction: column; }
-    .btn-auth { width: 100%; }
+    .controls .btn{margin-top:0;}
+
+    .header-right{gap:6px;}
   }
 
   @media (max-width:360px){
-    .brand h1{font-size:16px;}
-    .brand .mark{font-size:9px;}
-    .feedchip{font-size:9.5px;padding:5px 8px;}
-    .coin-panel tbody td{font-size:11px;}
-    .coin-cell{font-size:13px;}
-    .rate{font-size:12px;}
+    .brand h1{font-size:15px;}
+    .brand .mark{font-size:8px;}
+    .feedchip{font-size:9px;padding:4px 7px;}
+    .coin-panel tbody td{font-size:10.5px;}
+    .coin-cell{font-size:12px;}
+    .rate{font-size:11.5px;}
   }
 </style>
 </head>
@@ -328,23 +371,18 @@
       <div class="mark">HYPERLIQUID MONITOR · REST POLLING</div>
       <h1><img src="gemini-svg.svg" alt=""> FUNDING <span>//</span> WATCH</h1>
     </div>
-    <div class="clock">UTC <b id="clockUtc">--:--:--</b><br>последнее событие: <b id="lastUpdate">—</b></div>
+    <div class="header-right">
+      <div class="feedchip connecting" id="chip-hyperliquid"><span class="exdot hyperliquid"></span>Hyperliquid<span class="status"><span class="pulse"></span><span id="chiptxt-hyperliquid">connecting</span></span></div>
+      <div class="last-update">LAST SYNC: <b id="lastUpdate">—</b></div>
+      <span class="syncbadge" id="syncBadge">SYNC выкл</span>
+      <button class="btn-auth" id="signInBtn">Войти</button>
+      <button class="btn-auth" id="signOutBtn" style="display:none;">Выйти</button>
+    </div>
   </header>
-  
-  <div class="feedstrip" id="feedStrip">
-    <div class="feedchip connecting" id="chip-hyperliquid"><span class="exdot hyperliquid"></span>Hyperliquid<span class="status"><span class="pulse"></span><span id="chiptxt-hyperliquid">connecting</span></span></div>
-  </div>
 
-  <!-- COMPACT AUTH BAR -->
-  <div class="authbar" id="authBar">
-    <div class="who" id="authWho">
-      <span>️ не выполнен вход — настройки хранятся только в этом браузере</span>
-    </div>
-    <div class="actions">
-        <span class="syncbadge" id="syncBadge">☁ облако выкл</span>
-        <button class="btn-auth" id="signInBtn">Войти по почте</button>
-        <button class="btn-auth" id="signOutBtn" style="display:none;">Выйти</button>
-    </div>
+  <div class="panel log-panel">
+    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span><div class="spacer"></div><button class="btn danger" id="clearLogBtn" style="padding:5px 11px;font-size:10.5px;width:auto;height:32px;">Очистить журнал</button></div>
+    <div class="log-list" id="logList"><div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div></div>
   </div>
 
   <div class="modal-overlay" id="authModal">
@@ -361,7 +399,9 @@
       <button class="modal-forgot" id="authForgotBtn">Забыли пароль?</button>
     </div>
   </div>
-  
+
+  <div id="coinsContainer"></div>
+
   <div class="panel controls">
     <div class="field coins">
       <label>Монеты</label>
@@ -376,13 +416,11 @@
     <button class="btn primary" id="applyBtn">✓ Применить</button>
     <button class="btn" id="notifyBtn">🔔 Уведомления</button>
   </div>
-  
-  <div id="coinsContainer"></div>
-  <div class="panel log-panel">
-    <div class="log-title">ЖУРНАЛ АЛЕРТОВ <span class="n" id="logCount">0</span><div class="spacer"></div><button class="btn danger" id="clearLogBtn" style="padding:6px 12px;font-size:11px;width:auto;">Очистить журнал</button></div>
-    <div class="log-list" id="logList"><div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div></div>
-  </div>
-  <footer>Hyperliquid REST API — polling каждые 5 секунд, без бэкенда</footer>
+
+  <footer>
+    Hyperliquid REST API — polling каждые 5 секунд, без бэкенда
+    <span class="auth-note" id="authNote">⚠️ не выполнен вход — настройки хранятся только в этом браузере</span>
+  </footer>
 </div>
 
 <script type="module">
@@ -457,8 +495,8 @@ function fireAlert(coin, prevRate, newRate, diffPP, isWild){
 
   let msgHtml, msgPlain;
   if(isWild){
-    msgHtml = `<span class="wild-tag">⚡ дикая смена</span>Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>)`;
-    msgPlain = `⚡ ДИКАЯ СМЕНА ФАНДОСА · Hyperliquid ${coin}: ${prevText} → ${newText} (${diffText})`;
+    msgHtml = `Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>) <span class="wild-tag">⚡ дикая смена</span>`;
+    msgPlain = `Hyperliquid ${coin}: ${prevText} → ${newText} (${diffText}) · ДИКАЯ СМЕНА ФАНДОСА`;
   } else {
     msgHtml = `Hyperliquid <b>${coin}</b>: <span class="${prevCls}">${prevText}</span> → <span class="${newCls}">${newText}</span> (<span class="${diffCls}">${diffText}</span>)`;
     msgPlain = `Hyperliquid ${coin}: ${prevText} → ${newText} (${diffText})`;
@@ -477,7 +515,8 @@ function renderLog(){
   $('logCount').textContent = logEntries.length;
   const listEl = $('logList');
   if(logEntries.length===0){ listEl.innerHTML = '<div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>'; return; }
-  listEl.innerHTML = logEntries.map(e => `<div class="log-item${e.wild?' wild-log':''}"><span class="t">${e.t}</span><span>${e.html}</span></div>`).join('');
+  listEl.innerHTML = logEntries.map(e => `<div class="log-item${e.wild?' wild-log':''}"><span class="t">${e.t}</span><span class="content">${e.html}</span></div>`).join('');
+  listEl.scrollTop = listEl.scrollHeight;
 }
 
 function handleUpdate(coin, rate, mark){
@@ -497,7 +536,7 @@ function handleUpdate(coin, rate, mark){
     const isWild = signFlip && bothSubstantial;
 
     if(isWild){
-      deltaEl.textContent = ' дикая смена';
+      deltaEl.textContent = '⚡ дикая смена';
       deltaEl.className = 'delta wild';
       rowEl.classList.remove('flash-up','flash-down','alert-row');
       rowEl.classList.add('wild-row');
@@ -565,7 +604,6 @@ async function pollFunding(){
 }
 
 function startPolling(){ if(pollTimer) clearInterval(pollTimer); pollCounter = 0; setChip('connecting'); pollFunding(); pollTimer = setInterval(pollFunding, POLL_INTERVAL); }
-setInterval(()=>{ $('clockUtc').textContent = new Date().toUTCString().slice(17,25); }, 1000);
 function parseCoinsInput(){ return $('coinsInput').value.split(',').map(s=>s.trim().toUpperCase()).filter(Boolean); }
 
 function validateThreshold(val){
@@ -650,7 +688,7 @@ $('notifyBtn').addEventListener('click', async ()=>{
   const perm = await Notification.requestPermission();
   notifGranted = perm === 'granted';
   if(notifGranted){ $('notifyBtn').innerHTML = '✅ Уведомления включены'; $('notifyBtn').classList.add('on'); new Notification('Funding Watch', {body:'Уведомления включены — сообщу о резких сдвигах funding rate.'}); }
-  else { $('notifyBtn').textContent = ' Уведомления заблокированы'; }
+  else { $('notifyBtn').textContent = ' Уведомления'; }
 });
 if('Notification' in window && Notification.permission==='granted'){ notifGranted = true; $('notifyBtn').innerHTML='✅ Уведомления включены'; $('notifyBtn').classList.add('on'); }
 
@@ -675,25 +713,25 @@ async function initFirebase(cfg){
 }
 
 function renderAuthUI(){
-  const authBar = $('authBar');
   const who = $('authWho');
   const signIn = $('signInBtn');
   const signOutB = $('signOutBtn');
   const badge = $('syncBadge');
-  
+  const authNote = $('authNote');
+
   if(currentUser){
-    authBar.classList.add('logged-in');
     who.innerHTML = `<span>👤 вход выполнен: <b>${currentUser.email || currentUser.uid}</b></span>`;
+    authNote.textContent = '';
     signIn.style.display='none';
     signOutB.style.display='inline-block';
-    badge.textContent = '☁ синхронизировано';
+    badge.textContent = ' SYNC';
     badge.classList.add('on');
   } else {
-    authBar.classList.remove('logged-in');
     who.innerHTML = `<span>⚠️ не выполнен вход — настройки хранятся только в этом браузере</span>`;
+    authNote.textContent = '⚠️ не выполнен вход — настройки хранятся только в этом браузере';
     signIn.style.display='inline-block';
     signOutB.style.display='none';
-    badge.textContent = fbAuth ? '☁ облако готово' : '☁ облако выкл';
+    badge.textContent = 'SYNC выкл';
     badge.classList.remove('on');
   }
 }
