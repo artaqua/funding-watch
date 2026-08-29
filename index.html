@@ -408,7 +408,6 @@ const $ = (id) => document.getElementById(id);
 const EXCHANGE_INTERVAL = 1;
 const POLL_INTERVAL = 5000;
 const PP_DECIMALS = 6;
-const WILD_THRESHOLD = 0.000001;
 const THRESHOLD_MIN = 0.000001;
 const THRESHOLD_MAX = 100;
 const THRESHOLD_REGEX = /^(\d+([.,]\d*)?|[.,]\d*)$/;
@@ -489,7 +488,6 @@ function renderLog(){
   $('logCount').textContent = logEntries.length;
   const listEl = $('logList');
   if(logEntries.length===0){ listEl.innerHTML = '<div class="log-empty">Резких изменений funding rate пока не зафиксировано.</div>'; return; }
-  // Новые записи — сверху (обратный порядок)
   listEl.innerHTML = [...logEntries].reverse().map(e => `<div class="log-item${e.wild?' wild-log':''}"><span class="t">${e.t}</span><span class="content">${e.html}</span></div>`).join('');
   listEl.scrollTop = 0;
 }
@@ -506,9 +504,19 @@ function handleUpdate(coin, rate, mark){
   const prev = prevRates[coin];
   if(prev !== undefined){
     const diffPP = (rate - prev) * 100;
+
+    // Порог алерта в долях (не в процентах) — для сравнения с raw funding rate
+    const thresholdDecimal = thresholdPct / 100;
+
+    // Смена знака: было + стало − или наоборот
     const signFlip = (prev !== 0 && rate !== 0 && ((prev > 0 && rate < 0) || (prev < 0 && rate > 0)));
-    const bothSubstantial = (Math.abs(prev) >= WILD_THRESHOLD && Math.abs(rate) >= WILD_THRESHOLD);
-    const isWild = signFlip && bothSubstantial;
+
+    // Оба значения должны быть существенными — не меньше порога алерта (в долях)
+    // Это отсекает микро-значения вроде 0.00001% → -0.00001%
+    const bothAboveThreshold = (Math.abs(prev) >= thresholdDecimal && Math.abs(rate) >= thresholdDecimal);
+
+    // Дикая смена = смена знака И оба значения выше порога алерта
+    const isWild = signFlip && bothAboveThreshold;
 
     if(isWild){
       deltaEl.textContent = '⚡ дикая смена';
